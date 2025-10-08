@@ -157,14 +157,14 @@ const Hero = () => {
         </div>
 
         {/* 3D Toggle Button */}
-        <div className={`absolute top-8 right-8 transition-all duration-1000 ${
+        <div className={`absolute top-20 right-4 sm:top-8 sm:right-8 transition-all duration-1000 z-20 ${
           showCTA 
             ? 'opacity-100 translate-y-0' 
             : 'opacity-0 translate-y-4'
         }`}>
           <button
             onClick={() => setShow3D(!show3D)}
-            className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 text-sm font-medium"
+            className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 text-xs sm:text-sm font-medium shadow-lg"
             aria-label={show3D ? 'Disable 3D effects' : 'Enable 3D effects'}
           >
             {show3D ? '3D ON' : '3D OFF'}
