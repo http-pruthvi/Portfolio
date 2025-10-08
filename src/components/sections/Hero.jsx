@@ -10,6 +10,7 @@ const Hero = () => {
   const isTestEnv = typeof process !== 'undefined' && process.env.NODE_ENV === 'test';
   const [showTagline, setShowTagline] = useState(isTestEnv);
   const [showCTA, setShowCTA] = useState(isTestEnv);
+  const [show3D, setShow3D] = useState(true);
 
   // Typing animation for the name
   const nameAnimation = useTypingAnimation(
@@ -65,16 +66,22 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-blue-600/5 to-transparent animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      {/* Optional 3D Scene */}
-      <Suspense fallback={null}>
-        <Scene3D 
-          enableParticles={true}
-          enableGeometry={true}
-          enableControls={false}
-          performance="auto"
-          className="absolute inset-0 -z-10 opacity-40"
-        />
-      </Suspense>
+      {/* 3D Scene Background */}
+      {show3D && (
+        <Suspense fallback={
+          <div className="absolute inset-0 -z-10 flex items-center justify-center">
+            <div className="text-white/30 text-sm">Loading 3D scene...</div>
+          </div>
+        }>
+          <Scene3D 
+            enableParticles={true}
+            enableGeometry={true}
+            enableControls={false}
+            performance="medium"
+            className="absolute inset-0 -z-10 opacity-80"
+          />
+        </Suspense>
+      )}
 
       {/* Tech-inspired background elements */}
       <div className="absolute inset-0 opacity-30" aria-hidden="true">
@@ -147,6 +154,21 @@ const Hero = () => {
           >
             View Projects
           </Button>
+        </div>
+
+        {/* 3D Toggle Button */}
+        <div className={`absolute top-8 right-8 transition-all duration-1000 ${
+          showCTA 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-4'
+        }`}>
+          <button
+            onClick={() => setShow3D(!show3D)}
+            className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 text-sm font-medium"
+            aria-label={show3D ? 'Disable 3D effects' : 'Enable 3D effects'}
+          >
+            {show3D ? '3D ON' : '3D OFF'}
+          </button>
         </div>
 
         {/* Scroll indicator */}

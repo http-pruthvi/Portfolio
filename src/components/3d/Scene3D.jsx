@@ -24,14 +24,8 @@ const Scene3D = ({
   useEffect(() => {
     // Check device capabilities and user preferences
     const checkPerformance = () => {
-      const isMobile = typeof navigator !== 'undefined' 
-        ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-        : false;
       const hasReducedMotion = typeof window !== 'undefined' && window.matchMedia 
         ? window.matchMedia('(prefers-reduced-motion: reduce)')?.matches || false
-        : false;
-      const isLowEndDevice = typeof navigator !== 'undefined' && navigator.hardwareConcurrency 
-        ? navigator.hardwareConcurrency < 4 
         : false;
       
       if (hasReducedMotion) {
@@ -40,7 +34,11 @@ const Scene3D = ({
       }
 
       if (performance === 'auto') {
-        if (isMobile || isLowEndDevice) {
+        const isMobile = typeof navigator !== 'undefined' 
+          ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+          : false;
+        
+        if (isMobile) {
           setPerformanceLevel('low');
         } else {
           setPerformanceLevel('medium');
@@ -50,8 +48,8 @@ const Scene3D = ({
       setShouldRender(true);
     };
 
-    // Delay rendering to avoid blocking initial page load
-    const timer = setTimeout(checkPerformance, 1000);
+    // Reduced delay for faster 3D scene loading
+    const timer = setTimeout(checkPerformance, 500);
     
     return () => clearTimeout(timer);
   }, [performance]);

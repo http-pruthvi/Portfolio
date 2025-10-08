@@ -22,7 +22,7 @@ const Projects = () => {
   const [selectedTech, setSelectedTech] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [show3D, setShow3D] = useState(false);
+  const [show3D, setShow3D] = useState(true);
 
   const { elementRef, isVisible, prefersReducedMotion } = useScrollAnimation(0.1, '-50px');
 
