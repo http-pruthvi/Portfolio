@@ -1,5 +1,5 @@
 import { PinContainer } from "@/components/ui/3d-pin";
-import { Github, ExternalLink, Play } from "lucide-react";
+import { Github, Play } from "lucide-react";
 
 const projects = [
     {
@@ -42,7 +42,7 @@ const projects = [
 
 const Projects = () => {
     return (
-        <section id="projects" className="py-[89px] bg-black relative overflow-hidden">
+        <section id="projects" className="py-[89px] relative overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
 
@@ -72,7 +72,7 @@ const Projects = () => {
                                             {project.description}
                                         </span>
                                     </div>
-                                    <div className="flex flex-1 w-full rounded-lg mt-4 bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500 overflow-hidden relative group">
+                                    <div className="flex flex-1 w-full rounded-lg mt-4 overflow-hidden relative group">
                                         <img
                                             src={project.image}
                                             alt={project.title}

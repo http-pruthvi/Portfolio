@@ -10,7 +10,7 @@ const skills = [
 
 const Skills = () => {
     return (
-        <section id="skills" className="py-20 bg-neutral-950">
+        <section id="skills" className="py-20 bg-transparent">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 className="text-3xl md:text-5xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
                     Technical Arsenal
@@ -24,7 +24,7 @@ const Skills = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="bg-neutral-900/50 border border-white/10 rounded-xl p-6 hover:border-cyan-500/50 transition-colors"
+                            className="bg-white/5 border border-white/5 rounded-xl p-6 hover:border-cyan-500/50 transition-colors backdrop-blur-sm"
                         >
                             <h3 className="text-xl font-bold text-cyan-400 mb-4">{skillGroup.category}</h3>
                             <div className="flex flex-wrap gap-2">

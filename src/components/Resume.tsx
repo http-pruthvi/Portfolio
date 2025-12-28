@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ArrowLeft, Download, Printer, Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
+import { ArrowLeft, Download, Printer } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Resume = () => {
@@ -18,15 +18,17 @@ const Resume = () => {
     };
 
     const handleDownload = () => {
-        const element = document.querySelector('article');
+        const element = document.getElementById('resume-content');
         if (!element) return;
 
+        // Simple window print is best for "Jake Ryan" style to get selectable text PDF.
+        // But if clear image is needed:
         const opt = {
-            margin: [0.5, 0.5] as [number, number],
+            margin: [0, 0] as [number, number],
             filename: 'Pruthviraj_Phuse_Resume.pdf',
             image: { type: 'jpeg' as const, quality: 0.98 },
             html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' as const }
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' as const }
         };
         // @ts-ignore
         import('html2pdf.js').then(html2pdf => {
@@ -35,168 +37,147 @@ const Resume = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-black text-neutral-200 py-12 px-4 sm:px-6 lg:px-8 print:bg-white print:text-black print:p-0">
+        <div className="min-h-screen bg-neutral-100 py-12 px-4 sm:px-6 lg:px-8 print:bg-white print:text-black print:p-0">
             {/* Navigation & Actions */}
-            <div className="max-w-4xl mx-auto mb-8 flex justify-between items-center print:hidden">
+            <div className="max-w-[210mm] mx-auto mb-8 flex justify-between items-center print:hidden">
                 <Link
                     to="/"
-                    className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors group"
+                    className="flex items-center gap-2 text-neutral-600 hover:text-black transition-colors group"
                 >
                     <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
                     <span className="font-medium">Back to Portfolio</span>
                 </Link>
-                <div className="flex gap-3">
-                    <button
-                        onClick={handlePrint}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 transition-all text-white border border-white/10 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20"
-                    >
-                        <Printer size={18} />
-                        <span className="font-medium">Print</span>
-                    </button>
-                    <button
-                        onClick={handleDownload}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 transition-all text-white shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50"
-                    >
-                        <Download size={18} />
-                        <span className="font-medium">Download PDF</span>
-                    </button>
+                <div className="flex flex-col items-end gap-2">
+                    <div className="flex gap-3">
+                        <button
+                            onClick={handlePrint}
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-all shadow-lg"
+                            title="Best for Job Applications"
+                        >
+                            <Printer size={18} />
+                            <span className="font-medium">Save as PDF (ATS Optimized)</span>
+                        </button>
+                        <button
+                            onClick={handleDownload}
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-black hover:bg-neutral-100 transition-all text-neutral-600"
+                            title="Best for sharing on social media"
+                        >
+                            <Download size={18} />
+                            <span className="font-medium">Download Image (Not ATS)</span>
+                        </button>
+                    </div>
+                    <p className="text-[10px] text-neutral-500 font-medium print:hidden">
+                        *Use "Save as PDF" for Job Applications (ATS Friendly)
+                    </p>
                 </div>
             </div>
 
-            {/* Resume Content */}
-            <article className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl print:shadow-none print:rounded-none overflow-hidden">
-                {/* Header Section with Gradient */}
-                <div className="bg-gradient-to-r from-cyan-600 to-blue-600 p-8 print:bg-gradient-to-r print:from-cyan-600 print:to-blue-600">
-                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">PRUTHVIRAJ PHUSE</h1>
-                    <p className="text-cyan-50 text-lg mb-4">Full-Stack Developer | AI/ML Engineer | Mobile Developer</p>
-
-                    {/* Contact Info */}
-                    <div className="flex flex-wrap gap-4 text-white/90 text-sm">
-                        <div className="flex items-center gap-2">
-                            <Mail size={16} />
-                            <span>phusepruthvi@gmail.com</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Phone size={16} />
-                            <span>+91 8805765930</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <MapPin size={16} />
-                            <span>India</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Linkedin size={16} />
-                            <span>linkedin.com/in/pruthviraj-phuse</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Github size={16} />
-                            <span>github.com/http-pruthvi</span>
-                        </div>
-                    </div>
+            {/* Resume Content - "Jake Ryan" Template */}
+            <article id="resume-content" className="max-w-[210mm] min-h-[297mm] mx-auto bg-white shadow-2xl print:shadow-none p-[0.3in] print:p-0 text-black">
+                <div className="font-sans text-[9pt] leading-tight text-black">
+                    <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                            // Header: Name
+                            h1: ({ children }) => (
+                                <div className="text-center border-b border-black pb-1 mb-1">
+                                    <h1 className="text-2xl font-serif font-bold uppercase tracking-wide text-black mb-0.5">
+                                        {children}
+                                    </h1>
+                                </div>
+                            ),
+                            // Section Headers
+                            h2: ({ children }) => (
+                                <h2 className="text-sm font-serif font-bold uppercase tracking-wider border-b border-black mt-3 mb-1 pb-0.5 text-black">
+                                    {children}
+                                </h2>
+                            ),
+                            // Role / Title
+                            h3: ({ children }) => (
+                                <h3 className="text-[10pt] font-bold text-black mt-2 mb-0 font-serif">
+                                    {children}
+                                </h3>
+                            ),
+                            // Wrapper for lists
+                            ul: ({ children }) => (
+                                <ul className="list-disc list-outside ml-4 space-y-0.5 mb-1 text-black">
+                                    {children}
+                                </ul>
+                            ),
+                            li: ({ children }) => (
+                                <li className="pl-0 text-black">
+                                    {children}
+                                </li>
+                            ),
+                            strong: ({ children }) => (
+                                <strong className="font-bold text-black font-semibold">
+                                    {children}
+                                </strong>
+                            ),
+                            // For contact info specifically
+                            p: ({ children }) => {
+                                const text = String(children);
+                                if (text.includes('Email:') || text.includes('LinkedIn:')) {
+                                    return <p className="text-center text-[9pt] mb-2 text-black">{children}</p>;
+                                }
+                                return <p className="mb-0.5 text-black">{children}</p>;
+                            },
+                            a: ({ href, children }) => (
+                                <a href={href} className="text-black underline decoration-1 underline-offset-2 hover:text-neutral-700">
+                                    {children}
+                                </a>
+                            ),
+                            hr: () => <hr className="border-black my-1" />
+                        }}
+                    >
+                        {content}
+                    </ReactMarkdown>
                 </div>
 
-                {/* Main Content */}
-                <div className="p-8 md:p-12">
-                    <div className="prose prose-neutral max-w-none
-            prose-headings:text-neutral-900 prose-headings:font-bold
-            prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b-2 prose-h2:border-cyan-600
-            prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-cyan-700
-            prose-p:text-neutral-700 prose-p:leading-relaxed
-            prose-li:text-neutral-700 prose-li:leading-relaxed
-            prose-strong:text-neutral-900 prose-strong:font-semibold
-            prose-a:text-cyan-600 prose-a:no-underline hover:prose-a:underline
-            prose-ul:my-3 prose-ul:space-y-1
-            print:prose-h2:text-xl print:prose-h3:text-lg print:prose-p:text-sm print:prose-li:text-sm">
-                        <ReactMarkdown
-                            remarkPlugins={[remarkGfm]}
-                            components={{
-                                // Custom rendering for better styling
-                                h1: () => null, // Skip h1 as we have custom header
-                                h2: ({ children }) => (
-                                    <h2 className="text-2xl font-bold text-neutral-900 mt-8 mb-4 pb-2 border-b-2 border-cyan-600 print:text-xl print:mt-6 print:mb-3">
-                                        {children}
-                                    </h2>
-                                ),
-                                h3: ({ children }) => (
-                                    <h3 className="text-xl font-semibold text-cyan-700 mt-6 mb-3 print:text-lg print:mt-4 print:mb-2">
-                                        {children}
-                                    </h3>
-                                ),
-                                ul: ({ children }) => (
-                                    <ul className="space-y-2 my-4 list-disc list-inside marker:text-cyan-600">
-                                        {children}
-                                    </ul>
-                                ),
-                                li: ({ children }) => (
-                                    <li className="text-neutral-700 leading-relaxed pl-2">
-                                        {children}
-                                    </li>
-                                ),
-                                strong: ({ children }) => (
-                                    <strong className="font-semibold text-neutral-900">
-                                        {children}
-                                    </strong>
-                                ),
-                                p: ({ children }) => {
-                                    // Check if this is a contact info paragraph (skip it as we have custom header)
-                                    const text = String(children);
-                                    if (text.includes('Email:') || text.includes('Phone:') || text.includes('LinkedIn:')) {
-                                        return null;
-                                    }
-                                    return <p className="text-neutral-700 leading-relaxed my-3">{children}</p>;
-                                },
-                            }}
-                        >
-                            {content}
-                        </ReactMarkdown>
-                    </div>
-                </div>
-
-                {/* Footer */}
-                <div className="bg-neutral-100 px-8 py-4 text-center text-neutral-600 text-sm print:bg-white print:border-t print:border-neutral-300">
-                    <p>This resume was generated on {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                {/* Footer - Hidden in Print */}
+                <div className="mt-4 pt-2 border-t border-neutral-200 text-center text-neutral-400 text-[10px] print:hidden">
+                    <p>Generated on {new Date().toLocaleDateString()}</p>
                 </div>
             </article>
 
-            {/* Print Styles */}
+            {/* Jake Ryan Print Styles */}
             <style>{`
         @media print {
           @page {
-            margin: 0.5in;
-            size: letter;
+            margin: 0.3in;
+            size: a4;
           }
           
           body {
-            print-color-adjust: exact;
+            background: white;
+            color: black;
             -webkit-print-color-adjust: exact;
           }
           
-          .prose {
-            font-size: 11pt;
-            line-height: 1.4;
-          }
+          /* Hide everything outside article */
+          body > *:not(#root) { display: none; }
           
-          .prose h2 {
-            page-break-after: avoid;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
+          article {
+            box-shadow: none;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
           }
-          
-          .prose h3 {
-            page-break-after: avoid;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
+
+          /* Tighten up for one-pager */
+          p, li {
+             font-size: 9pt !important;
+             line-height: 1.2 !important;
           }
-          
-          .prose ul {
-            margin: 0.5rem 0;
-          }
-          
-          .prose li {
-            page-break-inside: avoid;
-            margin: 0.25rem 0;
-          }
+           h1 { font-size: 22pt !important; margin-bottom: 4px !important; }
+           h2 { font-size: 11pt !important; margin-top: 8px !important; margin-bottom: 4px !important; }
+           h3 { font-size: 10pt !important; margin-top: 6px !important; margin-bottom: 0px !important; }
+           ul { margin-bottom: 4px !important; }
         }
+        
+        /* Font Imports for screen if needed */
+        .font-serif { font-family: 'Times New Roman', serif; }
+        .font-sans { font-family: 'Arial', sans-serif; }
       `}</style>
         </div>
     );

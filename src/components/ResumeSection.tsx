@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const ResumeSection = () => {
     return (
-        <section id="resume" className="py-20 bg-black relative overflow-hidden">
+        <section id="resume" className="py-20 relative overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]" />

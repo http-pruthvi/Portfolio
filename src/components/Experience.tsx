@@ -23,11 +23,18 @@ const experience = [
         period: "2021 – 2022",
         description: "Secured 63.17%",
     },
+    {
+        type: "education",
+        role: "Secondary School (10th)",
+        company: "Balaji Secondary School Walsawangi",
+        period: "2020",
+        description: "Secured 83.60%",
+    },
 ];
 
 const Experience = () => {
     return (
-        <section id="experience" className="py-20 bg-neutral-950">
+        <section id="experience" className="py-20 relative overflow-hidden">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 className="text-3xl md:text-5xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
                     Experience & Education

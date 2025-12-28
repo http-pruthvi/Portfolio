@@ -93,7 +93,7 @@ const Certifications = () => {
             </>
         );
 
-        const baseClasses = "group bg-neutral-900/50 p-6 rounded-2xl border border-white/10 hover:border-cyan-500/50 transition-all hover:shadow-lg hover:shadow-cyan-500/10 relative overflow-hidden";
+        const baseClasses = "group bg-white/5 p-6 rounded-2xl border border-white/5 hover:border-cyan-500/50 transition-all hover:shadow-lg hover:shadow-cyan-500/10 relative overflow-hidden backdrop-blur-sm";
 
         return (
             <motion.div
@@ -122,7 +122,7 @@ const Certifications = () => {
     };
 
     return (
-        <section id="certifications" className="py-20 bg-black relative overflow-hidden">
+        <section id="certifications" className="py-20 bg-transparent relative overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
             <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px]" />
@@ -157,8 +157,8 @@ const Certifications = () => {
                             key={category}
                             onClick={() => setSelectedCategory(category)}
                             className={`px-6 py-2 rounded-full font-medium transition-all ${selectedCategory === category
-                                    ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/30"
-                                    : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+                                ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/30"
+                                : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
                                 }`}
                         >
                             {category}

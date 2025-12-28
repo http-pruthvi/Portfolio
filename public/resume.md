@@ -1,16 +1,13 @@
 # PRUTHVIRAJ PHUSE
 
-**Email:** phusepruthvi@gmail.com | **Phone:** +91 8805765930  
-**LinkedIn:** linkedin.com/in/pruthviraj-phuse | **GitHub:** github.com/http-pruthvi  
-**Location:** India
+**Email:** phusepruthvi@gmail.com | **Phone:** +91 8805765930 | **Location:** India  
+**LinkedIn:** linkedin.com/in/pruthviraj-phuse | **GitHub:** github.com/http-pruthvi
 
 ---
 
 ## PROFESSIONAL SUMMARY
 
-Results-driven Computer Engineering student with expertise in Full-Stack Development, AI/ML, and Cloud Computing. Proven track record of building scalable applications using React, Flutter, Python, and modern cloud technologies. Holder of 22+ professional certifications including Oracle AI Foundations, IBM Machine Learning, and AWS Generative AI. Currently developing production-ready mobile applications as Flutter Developer Intern at UNIKODEX.
-
-**Core Competencies:** Full-Stack Development | AI/ML Engineering | Cloud Architecture | Mobile App Development | Agile Methodologies
+Results-driven Computer Engineering student (2027) with deep expertise in **Full-Stack Development**, **AI/ML**, and **Cloud Computing**. Interning at **UNIKODEX** building production Flutter apps. Holder of **22+ certifications** (Oracle AI, AWS GenAI). Proven ability to deliver scalable solutions using React, Python, and Modern Cloud Tech.
 
 ---
 
@@ -33,11 +30,9 @@ Results-driven Computer Engineering student with expertise in Full-Stack Develop
 ### Flutter Developer Intern | UNIKODEX
 **July 2025 - Present**
 
-- Developing cross-platform mobile applications using Flutter and Dart for iOS and Android platforms
-- Implementing responsive UI/UX designs with Material Design principles and custom widgets
-- Integrating RESTful APIs and Firebase backend services for real-time data synchronization
-- Collaborating with design and backend teams using Agile methodologies to deliver features on sprint schedules
-- Optimizing app performance and reducing load times by 30% through code refactoring and lazy loading
+- Developed cross-platform mobile apps using Flutter & Dart; optimized performance reducing load times by 30%.
+- Integrated RESTful APIs and Firebase for real-time data synchronization and backend services.
+- Collaborated with cross-functional teams using Agile methodologies to deliver features on sprint schedules.
 
 ---
 
@@ -46,7 +41,14 @@ Results-driven Computer Engineering student with expertise in Full-Stack Develop
 ### Bachelor of Technology in Computer Science & Engineering
 **2023 - 2027 (Expected)**
 
-**Relevant Coursework:** Data Structures & Algorithms, Database Management Systems, Operating Systems, Computer Networks, Software Engineering, Artificial Intelligence, Machine Learning, Cloud Computing
+**Relevant Coursework:** Data Structures & Algorithms, DBMS, OS, Computer Networks, AI/ML, Cloud Computing
+
+### Higher Secondary (12th)
+**Jijamata Mahavidyalaya** | 2021 - 2022
+
+### Secondary School (10th)
+**Balaji Secondary School Walsawangi** | 2020
+Secured 83.60%
 
 ---
 
@@ -55,56 +57,20 @@ Results-driven Computer Engineering student with expertise in Full-Stack Develop
 ### AI Plant Disease Detection System
 **Technologies:** Python, TensorFlow, OpenCV, Flask, React.js
 
-- Developed deep learning model using CNN architecture achieving 94% accuracy in identifying plant diseases
-- Built responsive web interface with React.js for image upload and real-time disease prediction
-- Implemented Flask REST API backend for model inference and result delivery
-- Deployed on AWS EC2 with S3 for image storage, serving 500+ predictions with 2-second response time
+- Developed CNN deep learning model (94% accuracy) and deployed via Flask API on AWS EC2.
+- Built responsive React.js interface for real-time image upload and disease prediction.
 
 ### ASTRA - Smart AI Assistant
-**Technologies:** Python, NLP, Speech Recognition, Google Cloud APIs
+**Technologies:** Python, NLP, Google Cloud APIs
 
-- Created intelligent voice-activated assistant using natural language processing and speech recognition
-- Integrated multiple APIs for weather, news, calendar management, and task automation
-- Implemented context-aware conversation handling with 85% intent recognition accuracy
-- Designed modular architecture enabling easy addition of new features and commands
+- Created voice-activated assistant integrating weather/news APIs with 85% intent recognition accuracy.
+- Designed modular architecture for scalable feature addition and task automation.
 
 ### ItoBound - Intelligent Dating Application
-**Technologies:** Flutter, Firebase, Machine Learning, Dart
+**Technologies:** Flutter, Firebase, Machine Learning
 
-- Built cross-platform dating app with AI-powered matching algorithm using collaborative filtering
-- Implemented real-time chat functionality with Firebase Cloud Messaging and Firestore
-- Designed intuitive swipe-based UI with smooth animations and gesture controls
-- Integrated user authentication, profile management, and location-based matching features
-
----
-
-## CERTIFICATIONS
-
-**AI/ML & Generative AI:**
-- Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate
-- Oracle Cloud Infrastructure 2025 Certified Generative AI Professional
-- Introduction to Retrieval Augmented Generation (RAG) - Duke University
-- Generative AI with Vertex AI: Build a customer chatbot - Coursera
-- Machine Learning with Python - IBM
-- Introducing Generative AI with AWS - Udacity
-- Open-source AI Models - Scrimba
-- Intro to AI Engineering - Scrimba
-
-**Cloud Computing:**
-- Introduction to Cloud Computing - IBM
-- Oracle Cloud Infrastructure Foundations
-
-**Software Development:**
-- Full Stack Developer - OneRoadmap
-- Introduction to Software Engineering - IBM
-- Getting Started with Git and GitHub - IBM
-- Introduction to HTML, CSS, & JavaScript - IBM
-- Gen AI for developers: Web development with Python & Copilot - Coursera
-
-**Professional Development:**
-- Deloitte Australia - Technology Job Simulation - Forage
-- Introduction to Networking - NVIDIA
-- Foundations: Data, Data, Everywhere - Google
+- Built cross-platform app with AI-powered collaborative filtering matching algorithm.
+- Implemented real-time chat using Firebase Firestore and Cloud Messaging.
 
 ---
 
@@ -120,5 +86,5 @@ Results-driven Computer Engineering student with expertise in Full-Stack Develop
 
 ## ADDITIONAL INFORMATION
 
-**Languages:** English (Fluent), Hindi (Native)  
+**Languages:** English (Fluent), Hindi (Native), Marathi (Native), Japanese (Beginner)  
 **Interests:** Artificial Intelligence, Cloud Architecture, Open Source Contribution, Chess

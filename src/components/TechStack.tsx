@@ -16,7 +16,6 @@ import {
     SiDjango,
     SiFastapi,
     SiGo,
-    SiDotnet,
     SiRust,
     SiMysql,
     SiPostgresql,
@@ -40,13 +39,10 @@ import {
     SiPytorch,
     SiApacheairflow,
     SiLinux,
-    SiJenkins,
     SiTerraform,
-    SiAnsible,
     SiUnity,
     SiUnrealengine,
     SiBlender,
-    SiWireshark,
     SiKalilinux,
     SiSplunk,
 } from "react-icons/si";
@@ -79,7 +75,6 @@ const techStack: TechItem[] = [
     { name: "Django", icon: SiDjango, color: "#092E20", proficiency: 85, category: "Backend" },
     { name: "FastAPI", icon: SiFastapi, color: "#009688", proficiency: 80, category: "Backend" },
     { name: "Go", icon: SiGo, color: "#00ADD8", proficiency: 75, category: "Backend" },
-    { name: ".NET Core", icon: SiDotnet, color: "#512BD4", proficiency: 70, category: "Backend" },
     { name: "Rust", icon: SiRust, color: "#000000", proficiency: 60, category: "Backend" },
 
     // Mobile
@@ -102,16 +97,13 @@ const techStack: TechItem[] = [
     { name: "TensorFlow", icon: SiTensorflow, color: "#FF6F00", proficiency: 82, category: "Data Science" },
     { name: "PyTorch", icon: SiPytorch, color: "#EE4C2C", proficiency: 80, category: "Data Science" },
     { name: "PowerBI", icon: SiApacheairflow, color: "#F2C811", proficiency: 75, category: "Data Science" },
-    { name: "Airflow", icon: SiApacheairflow, color: "#017CEE", proficiency: 70, category: "Data Science" },
 
     // DevOps & Cloud
     { name: "Linux", icon: SiLinux, color: "#FCC624", proficiency: 85, category: "DevOps" },
     { name: "Git", icon: SiGit, color: "#F05032", proficiency: 90, category: "DevOps" },
     { name: "Docker", icon: SiDocker, color: "#2496ED", proficiency: 80, category: "DevOps" },
     { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5", proficiency: 70, category: "DevOps" },
-    { name: "Jenkins", icon: SiJenkins, color: "#D24939", proficiency: 70, category: "DevOps" },
     { name: "Terraform", icon: SiTerraform, color: "#7B42BC", proficiency: 65, category: "DevOps" },
-    { name: "Ansible", icon: SiAnsible, color: "#EE0000", proficiency: 65, category: "DevOps" },
     { name: "AWS", icon: SiAmazon, color: "#FF9900", proficiency: 75, category: "Cloud" },
     { name: "Azure", icon: SiLinux, color: "#007FFF", proficiency: 70, category: "Cloud" },
     { name: "GCP", icon: SiGooglecloud, color: "#4285F4", proficiency: 70, category: "Cloud" },
@@ -119,7 +111,6 @@ const techStack: TechItem[] = [
 
     // Cybersecurity
     { name: "Kali Linux", icon: SiKalilinux, color: "#557C94", proficiency: 80, category: "Cybersecurity" },
-    { name: "Wireshark", icon: SiWireshark, color: "#1679A7", proficiency: 75, category: "Cybersecurity" },
     { name: "Splunk", icon: SiSplunk, color: "#000000", proficiency: 65, category: "Cybersecurity" },
 
     // Game Dev
@@ -139,7 +130,7 @@ const TechStack = () => {
         : techStack.filter(tech => tech.category === selectedCategory);
 
     return (
-        <section id="tech-stack" className="py-[89px] bg-black relative overflow-hidden">
+        <section id="tech-stack" className="py-[89px] bg-transparent relative overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
             <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px]" />
@@ -176,7 +167,7 @@ const TechStack = () => {
                             onClick={() => setSelectedCategory(category)}
                             className={`px-[21px] py-[13px] rounded-full text-[14px] font-semibold transition-all duration-300 ${selectedCategory === category
                                 ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/50"
-                                : "bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-white border border-neutral-800"
+                                : "bg-black/20 text-neutral-400 hover:bg-neutral-800 hover:text-white border border-neutral-800 backdrop-blur-sm"
                                 }`}
                         >
                             {category}
@@ -207,7 +198,7 @@ const TechStack = () => {
                                         rotateX: 5,
                                     }}
                                     transition={{ type: "spring", stiffness: 300 }}
-                                    className="relative bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-2xl p-[21px] border border-neutral-700 hover:border-neutral-600 transition-all duration-300 cursor-pointer"
+                                    className="relative rounded-2xl p-[21px] transition-all duration-300 cursor-pointer"
                                     style={{
                                         transformStyle: "preserve-3d",
                                         perspective: "1000px",

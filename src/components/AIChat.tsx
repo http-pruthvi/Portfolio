@@ -1,200 +1,216 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Bot, User } from "lucide-react";
+import { X, Terminal, ChevronRight, Minimize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Message = {
+type Log = {
     id: string;
-    text: string;
-    sender: "user" | "bot";
+    type: "command" | "response" | "system";
+    content: string;
     timestamp: Date;
 };
 
 const AIChat = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<Message[]>([
+    const [input, setInput] = useState("");
+    const [logs, setLogs] = useState<Log[]>([
         {
-            id: "1",
-            text: "Hi! I'm Pruthvi's AI assistant. Ask me anything about his skills, projects, or experience!",
-            sender: "bot",
-            timestamp: new Date(),
-        },
+            id: "init",
+            type: "system",
+            content: "INITIALIZING NEURAL LINK...\nConnection Established.\nType 'help' for available commands.",
+            timestamp: new Date()
+        }
     ]);
-    const [inputValue, setInputValue] = useState("");
-    const [isTyping, setIsTyping] = useState(false);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
-
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        scrollToBottom();
-    }, [messages, isOpen]);
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }, [logs, isOpen]);
 
-    const generateResponse = (input: string) => {
-        const lowerInput = input.toLowerCase();
+    // Auto-focus input when opened
+    useEffect(() => {
+        if (isOpen && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isOpen]);
 
-        if (lowerInput.includes("hello") || lowerInput.includes("hi")) {
-            return "Hello there! How can I help you today?";
+    const processCommand = (cmd: string) => {
+        const lowerCmd = cmd.toLowerCase().trim();
+        let response = "";
+
+        // Function to check keywords
+        const contains = (keywords: string[]) => keywords.some(k => lowerCmd.includes(k));
+
+        // CLI Commands & Natural Language Parsing
+        if (contains(["help", "options", "commands", "what can you do"])) {
+            response = "AVAILABLE COMMANDS:\n  > about      : View profile summary\n  > skills     : List technical capabilities\n  > projects   : Access project database\n  > contact    : Establish communication\n  > clear      : Purge terminal logs\n  > exit       : Close terminal session\n\n  or ask me questions like 'who are you?', 'show me your work', 'do you know react?', etc.";
         }
-        if (lowerInput.includes("skills") || lowerInput.includes("stack") || lowerInput.includes("technologies")) {
-            return "Pruthvi is skilled in Full-Stack Development (React, Node.js), AI/ML (Python, TensorFlow, PyTorch), and Mobile App Development (Flutter). He also knows Cloud technologies like AWS and Google Cloud.";
+        else if (lowerCmd === "clear" || lowerCmd === "cls") {
+            setLogs([]);
+            return "";
         }
-        if (lowerInput.includes("project") || lowerInput.includes("work")) {
-            return "Some of his key projects include an AI Plant Disease Detection System, ASTRA (Smart AI Assistant), and ItoBound (Intelligent Dating App). You can check out the Projects section for more details!";
+        else if (lowerCmd === "exit") {
+            setIsOpen(false);
+            return "";
         }
-        if (lowerInput.includes("contact") || lowerInput.includes("email") || lowerInput.includes("reach")) {
-            return "You can reach Pruthvi at phusepruthvi@gmail.com or connect with him on LinkedIn. There's also a contact form at the bottom of the page!";
+        else if (contains(["about", "who are you", "who is pruthvi", "intro", "bio"])) {
+            response = "IDENTITY: Pruthvi\nROLE: Full-Stack Developer & AI Engineer\nSTATUS: Open for work\nOBJECTIVE: Building scalable, intelligent digital solutions.\nEDUCATION: B.Tech in CSE (2023-2027)";
         }
-        if (lowerInput.includes("experience") || lowerInput.includes("intern")) {
-            return "Pruthvi is currently a Flutter Developer Intern at UNIKODEX (since July 2025). He's gaining hands-on experience in building mobile applications.";
+        else if (contains(["skills", "tech stack", "technologies", "what do you know", "languages"])) {
+            response = "TECH STACK DETECTED:\n[FRONTEND] React, TypeScript, Tailwind, Three.js\n[BACKEND] Node.js, Python, Flask, Go\n[AI/ML] TensorFlow, PyTorch, OpenCV\n[TOOLS] Docker, AWS, Git\n\nI can adapt to any stack required for the mission.";
         }
-        if (lowerInput.includes("education") || lowerInput.includes("college")) {
-            return "He is pursuing a B.Tech in Computer Science & Engineering (2023–2027).";
+        else if (contains(["projects", "work", "portfolio", "what have you made", "show me"])) {
+            response = "LOADING PROJECT DATABASE...\n1. AI Plant Disease Detection\n2. ASTRA (Smart AI Assistant)\n3. ItoBound (Intelligent Dating App)\n\nRun 'open [project_name]' or ask about them for details.";
+        }
+        else if (contains(["contact", "email", "reach", "hire", "github", "linkedin"])) {
+            response = "ESTABLISHING COMMS...\nEmail: phusepruthvi@gmail.com\nLinkedIn: linkedin.com/in/http-pruthvi\nGitHub: github.com/http-pruthvi\nInstagram: instagram.com/http_pruthvi\nSignal strength: STRONG";
+        }
+        else if (contains(["resume", "cv", "download resume"])) {
+            response = "RESUME FILE FOUND.\nPath: /public/resume.pdf\nAction: Redirecting to resume section...\n(You can click the 'Resume' link in the navbar)";
+        }
+        else if (contains(["experience", "intern", "job"])) {
+            response = "CURRENT POSITION: Flutter Developer Intern @ UNIKODEX (July 2025 - Present).\nDeveloping cross-platform mobile applications and optimizing performance.";
+        }
+        else if (contains(["hi", "hello", "hey", "greetings"])) {
+            response = "Greetings, User. Systems are functional. Ready for input.";
+        }
+        // Specific Tech Queries
+        else if (contains(["react", "next", "vue", "angular"])) {
+            response = "CONFIRMED: High proficiency in Frontend Frameworks (React, Next.js). Delivering responsive, high-performance UIs.";
+        }
+        else if (contains(["python", "ai", "ml", "tensorflow", "pytorch"])) {
+            response = "CONFIRMED: Advanced capabilities in AI/ML & Python. Experience with neural networks, computer vision, and NLP models.";
+        }
+        else {
+            response = `Command '${lowerCmd}' not recognized. Nature language processing module minimal. Try 'help' for valid inputs.`;
         }
 
-        return "That's a great question! While I'm just a simple AI, I'd recommend checking out the Resume or Contact section for more specific details about Pruthvi.";
+        return response;
     };
 
-    const handleSendMessage = (e?: React.FormEvent) => {
-        e?.preventDefault();
-        if (!inputValue.trim()) return;
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!input.trim()) return;
 
-        const newUserMessage: Message = {
+        const newLog: Log = {
             id: Date.now().toString(),
-            text: inputValue,
-            sender: "user",
-            timestamp: new Date(),
+            type: "command",
+            content: input,
+            timestamp: new Date()
         };
 
-        setMessages((prev) => [...prev, newUserMessage]);
-        setInputValue("");
-        setIsTyping(true);
+        setLogs(prev => [...prev, newLog]);
 
-        // Simulate AI delay
+        // Process
         setTimeout(() => {
-            const botResponse: Message = {
-                id: (Date.now() + 1).toString(),
-                text: generateResponse(newUserMessage.text),
-                sender: "bot",
-                timestamp: new Date(),
-            };
-            setMessages((prev) => [...prev, botResponse]);
-            setIsTyping(false);
-        }, 1000);
+            const responseText = processCommand(input);
+            if (responseText) {
+                const resLog: Log = {
+                    id: (Date.now() + 1).toString(),
+                    type: "response",
+                    content: responseText,
+                    timestamp: new Date()
+                };
+                setLogs(prev => [...prev, resLog]);
+            }
+        }, 100 + Math.random() * 200); // Tiny "processing" delay
+
+        setInput("");
     };
 
     return (
         <>
-            {/* Floating Button */}
-            <motion.button
-                onClick={() => setIsOpen(true)}
+            <button
+                onClick={() => setIsOpen(!isOpen)}
                 className={cn(
-                    "fixed bottom-6 right-6 z-50 p-4 rounded-full bg-cyan-600 text-white shadow-lg shadow-cyan-500/30 hover:bg-cyan-500 transition-all",
-                    isOpen && "hidden"
+                    "text-gray-400 hover:text-white transition-colors relative p-2 rounded-full hover:bg-white/10",
+                    isOpen && "text-cyan-400 bg-cyan-900/20 shadow-[0_0_15px_rgba(34,211,238,0.5)]"
                 )}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                title="Open Terminal"
             >
-                <MessageCircle size={28} />
-            </motion.button>
+                <Terminal size={20} />
+            </button>
 
-            {/* Chat Window */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="fixed bottom-6 right-6 z-50 w-[350px] h-[500px] bg-neutral-900 border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed bottom-20 right-4 md:right-10 md:bottom-24 w-[90vw] md:w-[600px] h-[60vh] md:h-[500px] bg-black/85 backdrop-blur-xl border border-cyan-500/30 rounded-lg shadow-2xl overflow-hidden z-50 flex flex-col font-mono text-sm"
+                        style={{ boxShadow: "0 0 40px rgba(6,182,212,0.15)" }}
                     >
-                        {/* Header */}
-                        <div className="p-4 bg-neutral-800 border-b border-white/10 flex justify-between items-center">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400">
-                                    <Bot size={18} />
+                        {/* Terminal Header */}
+                        <div className="bg-gray-900/90 border-b border-white/10 p-2 flex items-center justify-between select-none">
+                            <div className="flex items-center gap-2 px-2">
+                                <div className="flex gap-1.5">
+                                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
                                 </div>
-                                <div>
-                                    <h3 className="font-bold text-white text-sm">Pruthvi AI</h3>
-                                    <p className="text-xs text-green-400 flex items-center gap-1">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                                        Online
-                                    </p>
-                                </div>
+                                <span className="text-xs text-gray-400 ml-2">guest@portfolio:~</span>
                             </div>
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className="text-neutral-400 hover:text-white transition-colors"
-                            >
-                                <X size={20} />
-                            </button>
+                            <div className="flex items-center gap-1">
+                                <button onClick={() => setLogs([])} className="p-1 hover:bg-white/10 rounded text-gray-500 hover:text-white" title="Clear">
+                                    <Minimize2 size={14} />
+                                </button>
+                                <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-red-500/20 rounded text-gray-500 hover:text-red-400" title="Close">
+                                    <X size={14} />
+                                </button>
+                            </div>
                         </div>
 
-                        {/* Messages */}
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-black/50">
-                            {messages.map((msg) => (
-                                <div
-                                    key={msg.id}
-                                    className={cn(
-                                        "flex gap-2 max-w-[80%]",
-                                        msg.sender === "user" ? "ml-auto flex-row-reverse" : "mr-auto"
+                        {/* Terminal Body */}
+                        <div
+                            className="flex-1 overflow-y-auto p-4 space-y-2 text-green-400/90"
+                            ref={scrollRef}
+                            onClick={() => inputRef.current?.focus()}
+                        >
+                            {/* CRT/Scanline Overlay */}
+                            <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_2px,3px_100%] opacity-20" />
+
+                            {logs.map(log => (
+                                <div key={log.id} className="break-words whitespace-pre-wrap">
+                                    {log.type === 'command' ? (
+                                        <div className="flex gap-2 text-cyan-300">
+                                            <span className="opacity-50">$</span>
+                                            <span>{log.content}</span>
+                                        </div>
+                                    ) : (
+                                        <div className={cn(
+                                            "pl-4 border-l-2 border-white/10",
+                                            log.type === "system" ? "text-yellow-400/80" : "text-gray-300"
+                                        )}>
+                                            {log.content}
+                                        </div>
                                     )}
-                                >
-                                    <div
-                                        className={cn(
-                                            "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0",
-                                            msg.sender === "user"
-                                                ? "bg-purple-500/20 text-purple-400"
-                                                : "bg-cyan-500/20 text-cyan-400"
-                                        )}
-                                    >
-                                        {msg.sender === "user" ? <User size={14} /> : <Bot size={14} />}
-                                    </div>
-                                    <div
-                                        className={cn(
-                                            "p-3 rounded-2xl text-sm",
-                                            msg.sender === "user"
-                                                ? "bg-purple-600 text-white rounded-tr-none"
-                                                : "bg-neutral-800 text-neutral-200 rounded-tl-none"
-                                        )}
-                                    >
-                                        {msg.text}
-                                    </div>
                                 </div>
                             ))}
-                            {isTyping && (
-                                <div className="flex gap-2 mr-auto max-w-[80%]">
-                                    <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0 text-cyan-400">
-                                        <Bot size={14} />
-                                    </div>
-                                    <div className="p-3 rounded-2xl rounded-tl-none bg-neutral-800 text-neutral-400 text-sm flex items-center gap-1">
-                                        <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                                        <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                                        <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
-                                    </div>
-                                </div>
-                            )}
-                            <div ref={messagesEndRef} />
-                        </div>
 
-                        {/* Input */}
-                        <form onSubmit={handleSendMessage} className="p-4 bg-neutral-800 border-t border-white/10 flex gap-2">
-                            <input
-                                type="text"
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                placeholder="Ask something..."
-                                className="flex-1 bg-black/50 border border-white/10 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 transition-colors"
-                            />
-                            <button
-                                type="submit"
-                                disabled={!inputValue.trim() || isTyping}
-                                className="p-2 rounded-full bg-cyan-600 text-white hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                            >
-                                <Send size={18} />
-                            </button>
-                        </form>
+                            {/* Input Line */}
+                            <form onSubmit={handleSubmit} className="flex gap-2 items-center text-cyan-300 mt-2 relative z-20">
+                                <ChevronRight size={14} />
+                                <input
+                                    ref={inputRef}
+                                    type="text"
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    className="flex-1 bg-transparent border-none outline-none text-cyan-300 placeholder-cyan-800/50"
+                                    autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+                                    spellCheck={false}
+                                    autoComplete="off"
+                                />
+                                <motion.span
+                                    animate={{ opacity: [0, 1, 0] }}
+                                    transition={{ repeat: Infinity, duration: 0.8 }}
+                                    className="w-2 h-4 bg-cyan-400 ml-[-8px]"
+                                />
+                            </form>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

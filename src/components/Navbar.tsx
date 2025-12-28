@@ -1,11 +1,24 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
+import { Menu, X, Github, Linkedin, Mail, Gamepad2, Instagram } from "lucide-react";
 import { cn } from "@/lib/utils";
+import AIChat from "./AIChat";
+import { useGame } from "@/context/GameContext";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const { gameActive, setGameActive, setScore, setHealth } = useGame();
+
+    const toggleGame = () => {
+        if (!gameActive) {
+            setScore(0);
+            setHealth(100);
+            setGameActive(true);
+        } else {
+            setGameActive(false);
+        }
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -27,7 +40,7 @@ const Navbar = () => {
         <nav
             className={cn(
                 "fixed top-0 w-full z-50 transition-all duration-300",
-                scrolled
+                scrolled || gameActive
                     ? "bg-background/80 backdrop-blur-md border-b border-white/10"
                     : "bg-transparent"
             )}
@@ -46,32 +59,60 @@ const Navbar = () => {
                         </span>
                     </div>
 
-                    {/* Desktop Menu */}
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-8">
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-white/10"
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
+                    {!gameActive && (
+                        <>
+                            {/* Desktop Menu */}
+                            <div className="hidden md:block">
+                                <div className="ml-10 flex items-baseline space-x-8">
+                                    {navLinks.map((link) => (
+                                        <a
+                                            key={link.name}
+                                            href={link.href}
+                                            className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-white/10"
+                                        >
+                                            {link.name}
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    )}
 
-                    {/* Social Icons (Desktop) */}
+                    {/* Social Icons & Tools (Desktop) */}
                     <div className="hidden md:flex items-center space-x-4">
-                        <a href="https://github.com/http-pruthvi" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                            <Github size={20} />
-                        </a>
-                        <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                            <Linkedin size={20} />
-                        </a>
-                        <a href="mailto:phusepruthvi@gmail.com" className="text-gray-400 hover:text-white transition-colors">
-                            <Mail size={20} />
-                        </a>
+                        {!gameActive && (
+                            <>
+                                <a href="https://github.com/http-pruthvi" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                                    <Github size={20} />
+                                </a>
+                                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                                    <Linkedin size={20} />
+                                </a>
+                                <a href="mailto:phusepruthvi@gmail.com" className="text-gray-400 hover:text-white transition-colors">
+                                    <Mail size={20} />
+                                </a>
+                                <a href="https://instagram.com/http_pruthvi" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                                    <Instagram size={20} />
+                                </a>
+                                <AIChat />
+                            </>
+                        )}
+
+                        {/* Game Toggle */}
+                        <button
+                            onClick={toggleGame}
+                            className={cn(
+                                "text-gray-400 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10",
+                                gameActive && "text-red-500 hover:text-red-400 bg-red-500/10 hover:bg-red-500/20"
+                            )}
+                            title={gameActive ? "Exit Defense Mode" : "Start Defense Mode"}
+                        >
+                            {gameActive ? (
+                                <X size={20} />
+                            ) : (
+                                <Gamepad2 size={20} />
+                            )}
+                        </button>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -106,6 +147,9 @@ const Navbar = () => {
                                     {link.name}
                                 </a>
                             ))}
+                            <div className="px-3 py-2">
+                                <AIChat />
+                            </div>
                         </div>
                     </motion.div>
                 )}

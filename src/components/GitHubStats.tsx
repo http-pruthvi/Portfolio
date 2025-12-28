@@ -30,7 +30,7 @@ const GitHubStats = () => {
     }, []);
 
     return (
-        <section id="github" className="py-20 bg-neutral-950 relative overflow-hidden">
+        <section id="github" className="py-20 bg-transparent relative overflow-hidden">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
             <div className="absolute top-1/2 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]" />
@@ -58,7 +58,7 @@ const GitHubStats = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
                         viewport={{ once: true }}
-                        className="bg-neutral-900/50 p-6 rounded-2xl border border-white/10 backdrop-blur-sm"
+                        className="bg-white/5 p-6 rounded-2xl border border-white/5 backdrop-blur-sm"
                     >
                         <div className="flex items-center gap-3 mb-2">
                             <Github className="text-cyan-400" size={24} />
@@ -72,7 +72,7 @@ const GitHubStats = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                         viewport={{ once: true }}
-                        className="bg-neutral-900/50 p-6 rounded-2xl border border-white/10 backdrop-blur-sm"
+                        className="bg-white/5 p-6 rounded-2xl border border-white/5 backdrop-blur-sm"
                     >
                         <div className="flex items-center gap-3 mb-2">
                             <Star className="text-yellow-400" size={24} />
@@ -86,7 +86,7 @@ const GitHubStats = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.3 }}
                         viewport={{ once: true }}
-                        className="bg-neutral-900/50 p-6 rounded-2xl border border-white/10 backdrop-blur-sm"
+                        className="bg-white/5 p-6 rounded-2xl border border-white/5 backdrop-blur-sm"
                     >
                         <div className="flex items-center gap-3 mb-2">
                             <Github className="text-purple-400" size={24} />
@@ -115,7 +115,7 @@ const GitHubStats = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="group bg-neutral-900/50 p-6 rounded-2xl border border-white/10 hover:border-cyan-500/50 transition-all hover:shadow-lg hover:shadow-cyan-500/10"
+                            className="group bg-white/5 p-6 rounded-2xl border border-white/5 hover:border-cyan-500/50 transition-all hover:shadow-lg hover:shadow-cyan-500/10 backdrop-blur-sm"
                         >
                             <div className="flex items-start justify-between mb-3">
                                 <Github className="text-cyan-400 group-hover:scale-110 transition-transform" size={24} />
@@ -163,7 +163,7 @@ const GitHubStats = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                     viewport={{ once: true }}
-                    className="mt-12 bg-neutral-900/50 p-8 rounded-2xl border border-white/10"
+                    className="mt-12 bg-white/5 p-8 rounded-2xl border border-white/5 backdrop-blur-sm"
                 >
                     <h3 className="text-xl font-bold text-white mb-4">Contribution Activity</h3>
                     <img

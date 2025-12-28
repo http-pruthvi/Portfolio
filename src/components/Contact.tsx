@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Send, Loader2 } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Loader2, Instagram } from "lucide-react";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
@@ -36,7 +36,7 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="py-20 bg-black relative overflow-hidden">
+        <section id="contact" className="py-20 relative overflow-hidden">
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/20 rounded-full blur-[100px]" />
@@ -84,6 +84,18 @@ const Contact = () => {
                             </div>
 
                             <div className="flex items-center gap-4 text-neutral-300">
+                                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-pink-500">
+                                    <Instagram size={20} />
+                                </div>
+                                <div>
+                                    <p className="text-sm text-neutral-500">Instagram</p>
+                                    <a href="https://instagram.com/http_pruthvi" target="_blank" rel="noreferrer" className="hover:text-pink-500 transition-colors">
+                                        @http_pruthvi
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-4 text-neutral-300">
                                 <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-green-400">
                                     <MapPin size={20} />
                                 </div>
@@ -101,7 +113,7 @@ const Contact = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5 }}
                         viewport={{ once: true }}
-                        className="bg-neutral-900/50 p-8 rounded-2xl border border-white/10"
+                        className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/5"
                     >
                         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                             <div>

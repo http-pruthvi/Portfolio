@@ -3,22 +3,31 @@ import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
-import ParticleBackground from "@/components/ParticleBackground";
-import Profile3D from "@/components/Profile3D";
+import HeroModel from "./HeroModel";
+import GlitchText from "@/components/ui/GlitchText";
+
 
 const Hero = () => {
     return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-black relative overflow-hidden">
-            {/* Particle Background */}
-            <ParticleBackground />
-
+        <div className="min-h-screen w-full flex items-center justify-center relative overflow-hidden">
             {/* Spotlight Effect */}
             <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
 
             {/* Background Grid */}
             <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
+            {/* Full Screen 3D Model with Floating Icons */}
+            <div className="absolute inset-0 z-0 h-full w-full">
+                <HeroModel />
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 pointer-events-none">
+                {/* Pointer events none on container, auto on children so we can click text but also rotate model? 
+                    Actually, if model is z-0 and text is z-10, clicks on text work. 
+                    Clicks on empty space hit the text container. If we want orbit controls to work, we need `pointer-events-none` on the overlapping text container 
+                    and `pointer-events-auto` on the text elements (buttons/links).
+                */}
+
                 {/* Balanced Grid: 1.618 : 1 : 1.618 (text gets golden ratio, image is smaller) */}
                 <div className="grid grid-cols-1 lg:grid-cols-[1.618fr_1fr_1.618fr] items-center gap-8 lg:gap-[34px]">
 
@@ -27,39 +36,28 @@ const Hero = () => {
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="text-center lg:text-right"
+                        className="text-center lg:text-right pointer-events-auto"
                     >
                         <h2 className="text-[42px] md:text-[52px] lg:text-[68px] font-bold text-white mb-[21px] font-mono leading-tight">
-                            &lt;engineer/&gt;
+                            <GlitchText text="<engineer/>" />
                         </h2>
                         <p className="text-neutral-400 text-[16px] leading-[26px]">
                             Machine learning enthusiast who creates intelligent systems with clean, elegant code
                         </p>
                     </motion.div>
 
-                    {/* CENTER IMAGE with True 3D Model */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative flex-shrink-0 mx-auto w-full max-w-[400px] h-[400px]"
-                    >
-                        {/* Subtle glow effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-transparent to-yellow-500/10 blur-3xl pointer-events-none"></div>
-
-                        {/* React Three Fiber 3D Scene */}
-                        <Profile3D />
-                    </motion.div>
+                    {/* CENTER SPACER - Keeps text pushed apart */}
+                    <div className="relative flex-shrink-0 mx-auto w-full max-w-[250px] h-[250px] lg:max-w-[300px] lg:h-[300px] hidden lg:block" />
 
                     {/* RIGHT TEXT - Designer (Creative) */}
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="text-center lg:text-left"
+                        className="text-center lg:text-left pr-4 pointer-events-auto" // Added padding-right to fix clipping
                     >
-                        <h2 className="text-[42px] md:text-[52px] lg:text-[68px] font-bold text-white mb-[21px] leading-tight">
-                            designer
+                        <h2 className="text-[42px] md:text-[52px] lg:text-[68px] font-bold text-white mb-[21px] font-mono leading-tight">
+                            <GlitchText text="designer" />
                         </h2>
                         <p className="text-neutral-400 text-[16px] leading-[26px]">
                             Creative problem solver who crafts beautiful, intuitive experiences with attention to detail
@@ -72,7 +70,7 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
-                    className="text-center mt-[89px]"
+                    className="text-center mt-[89px] pointer-events-auto"
                 >
                     <div className="text-[20px] md:text-[26px] text-neutral-400 mb-[55px] h-[34px]">
                         <TypeAnimation
@@ -106,8 +104,8 @@ const Hero = () => {
                     </div>
                 </motion.div>
             </div>
+
         </div>
     );
 };
-
 export default Hero;

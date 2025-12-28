@@ -37,10 +37,32 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    cursor: none;
+  }
+
+  /* Restore cursor for touch devices if possible, but JS handles logic too */
+  @media (pointer: coarse) {
+    html {
+      cursor: auto;
+    }
+  }
+
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-tech;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-gaming uppercase tracking-widest;
   }
 }
