@@ -1,5 +1,3 @@
-
-
 import GlitchText from "./GlitchText";
 
 const CyberOverlay = () => {

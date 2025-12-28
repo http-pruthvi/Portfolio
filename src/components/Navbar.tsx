@@ -147,8 +147,30 @@ const Navbar = () => {
                                     {link.name}
                                 </a>
                             ))}
-                            <div className="px-3 py-2">
+                            <div className="px-3 py-2 flex items-center justify-between gap-4">
                                 <AIChat />
+                                <button
+                                    onClick={() => {
+                                        toggleGame();
+                                        setIsOpen(false);
+                                    }}
+                                    className={cn(
+                                        "text-gray-400 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 flex items-center gap-2",
+                                        gameActive && "text-red-500 bg-red-500/10"
+                                    )}
+                                >
+                                    {gameActive ? (
+                                        <>
+                                            <X size={20} />
+                                            <span className="text-sm font-medium">Exit Game</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Gamepad2 size={20} />
+                                            <span className="text-sm font-medium">Play Game</span>
+                                        </>
+                                    )}
+                                </button>
                             </div>
                         </div>
                     </motion.div>

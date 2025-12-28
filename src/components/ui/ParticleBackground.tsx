@@ -479,11 +479,33 @@ const ArcadeInvasion = () => {
             gameStateRef.current.ship.y = height - 100;
         };
 
+        const handleTouchMove = (e: TouchEvent) => {
+            if (gameStateRef.current.gameActive) {
+                e.preventDefault(); // Prevent scrolling while playing
+                const touch = e.touches[0];
+                gameStateRef.current.ship.x = touch.clientX - 16;
+                // Optional Y movement
+                if (touch.clientY < height - 50) gameStateRef.current.ship.y = touch.clientY - 50;
+            }
+        };
+
+        const handleTouchStart = () => {
+            if (gameStateRef.current.gameActive) {
+                // Shoot on tap
+                gameStateRef.current.keys["Space"] = true;
+                setTimeout(() => gameStateRef.current.keys["Space"] = false, 100);
+            }
+        };
+
         window.addEventListener("resize", handleResize);
         window.addEventListener("mousedown", handleClick);
         window.addEventListener("keydown", handleKeyDown);
         window.addEventListener("keyup", handleKeyUp);
-        window.addEventListener("mousemove", handleMouseMove); // Hybrid controls
+        window.addEventListener("mousemove", handleMouseMove);
+
+        // Touch Support
+        window.addEventListener("touchmove", handleTouchMove, { passive: false });
+        window.addEventListener("touchstart", handleTouchStart);
 
         const loop = requestAnimationFrame(update);
 
@@ -493,6 +515,10 @@ const ArcadeInvasion = () => {
             window.removeEventListener("keydown", handleKeyDown);
             window.removeEventListener("keyup", handleKeyUp);
             window.removeEventListener("mousemove", handleMouseMove);
+
+            window.removeEventListener("touchmove", handleTouchMove);
+            window.removeEventListener("touchstart", handleTouchStart);
+
             cancelAnimationFrame(loop);
         };
     }, []); // Only run once on mount
