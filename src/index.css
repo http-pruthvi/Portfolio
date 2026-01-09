@@ -39,7 +39,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    cursor: none;
   }
 
   /* Restore cursor for touch devices if possible, but JS handles logic too */

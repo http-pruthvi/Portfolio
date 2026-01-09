@@ -27,7 +27,7 @@ const Vertebra = ({ position, rotation = [0, 0, 0], scale = 1 }: { position: [nu
     const s = scale * 0.4; // Global scale down to ~0.7 unit to match real world meters
 
     return (
-        <group position={position} rotation={rotation as any}>
+        <group position={position} rotation={rotation as any}> {/* eslint-disable-line @typescript-eslint/no-explicit-any */}
             {/* Vertebral Body (Centrum) */}
             <mesh material={material} position={[0, 0, 0.02 * s]}>
                 <cylinderGeometry args={[0.045 * s, 0.045 * s, 0.05 * s, 24]} />
@@ -66,7 +66,7 @@ const IntervertebralDisc = ({ position, rotation = [0, 0, 0], scale = 1 }: { pos
     const material = useDiscMaterial();
     const s = scale * 0.4;
     return (
-        <group position={position} rotation={rotation as any}>
+        <group position={position} rotation={rotation as any}> {/* eslint-disable-line @typescript-eslint/no-explicit-any */}
             <mesh material={material} position={[0, 0, 0.02 * s]}>
                 <cylinderGeometry args={[0.046 * s, 0.046 * s, 0.015 * s, 24]} />
             </mesh>

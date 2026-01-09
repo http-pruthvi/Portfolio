@@ -30,7 +30,7 @@ const Resume = () => {
             html2canvas: { scale: 2 },
             jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' as const }
         };
-        // @ts-ignore
+
         import('html2pdf.js').then(html2pdf => {
             html2pdf.default().set(opt).from(element).save();
         });
@@ -98,6 +98,7 @@ const Resume = () => {
                                     {children}
                                 </h3>
                             ),
+
                             // Wrapper for lists
                             ul: ({ children }) => (
                                 <ul className="list-disc list-outside ml-4 space-y-0.5 mb-1 text-black">

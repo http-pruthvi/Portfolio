@@ -49,7 +49,7 @@ const PlayerStats = () => {
                         <User size={16} className="text-cyan-400" />
                     </div>
                     <div>
-                        <h4 className="font-bold text-white uppercase">{gameActive ? "DEFENSE PILOT" : "Player 1"}</h4>
+                        <h4 className="font-bold text-white uppercase">{gameActive ? "DEFENSE PILOT" : "Pruthvi.dev"}</h4>
                         <span className="text-cyan-500">LVL {gameActive ? gameLevel : level} // {gameActive ? "COMBAT" : "ENGINEER"}</span>
                     </div>
                 </div>

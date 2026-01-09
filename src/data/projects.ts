@@ -1,0 +1,38 @@
+export const projects = [
+    {
+        title: "AI Plant Disease Detection",
+        description: "Computer vision model to detect plant diseases and recommend treatments using Deep Learning.",
+        tags: ["Python", "TensorFlow", "OpenCV"],
+        github: "https://github.com/http-pruthvi",
+        demo: "#",
+        image: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=1000",
+        color: "text-green-500",
+    },
+    {
+        title: "ASTRA – Smart AI Assistant",
+        description: "AI-powered assistant integrating automation, reasoning, and conversation with voice control.",
+        tags: ["Python", "NLP", "Automation"],
+        github: "https://github.com/http-pruthvi",
+        demo: "#",
+        image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&q=80&w=1000",
+        color: "text-purple-500",
+    },
+    {
+        title: "ItoBound – Intelligent Dating App",
+        description: "ML-based matchmaking & recommendation system focused on algorithm optimization.",
+        tags: ["Flutter", "Machine Learning", "Firebase"],
+        github: "https://github.com/http-pruthvi",
+        demo: "#",
+        image: "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?auto=format&fit=crop&q=80&w=1000",
+        color: "text-pink-500",
+    },
+    {
+        title: "Quantum Chess (AI Enhanced)",
+        description: "AI-driven chess engine utilizing heuristic evaluation for improved gameplay strategies.",
+        tags: ["C++", "AI", "Game Dev"],
+        github: "https://github.com/http-pruthvi",
+        demo: "#",
+        image: "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=1000",
+        color: "text-cyan-500",
+    },
+];

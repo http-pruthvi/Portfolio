@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useState, useEffect } from "react";
 
 const KONAMI_CODE = [
     "ArrowUp",
@@ -15,35 +14,25 @@ const KONAMI_CODE = [
 ];
 
 export const useKonamiCode = () => {
-    const [input, setInput] = useState<string[]>([]);
-    const [godMode, setGodMode] = useState(false);
+    const [, setKeyHistory] = useState<string[]>([]);
+    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            const newInput = [...input, e.key];
+            setKeyHistory((prev) => {
+                const newHistory = [...prev, e.key].slice(-KONAMI_CODE.length);
 
-            if (newInput.length > KONAMI_CODE.length) {
-                newInput.shift();
-            }
+                if (JSON.stringify(newHistory) === JSON.stringify(KONAMI_CODE)) {
+                    setSuccess(true);
+                }
 
-            setInput(newInput);
-
-            if (newInput.join("") === KONAMI_CODE.join("")) {
-                setGodMode(true);
-                toast.success("GOD MODE ACTIVATED!", {
-                    icon: "🎮",
-                    style: {
-                        background: "#333",
-                        color: "#0F0",
-                        fontFamily: "monospace"
-                    }
-                });
-            }
+                return newHistory;
+            });
         };
 
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [input]);
+    }, []);
 
-    return godMode;
+    return success;
 };

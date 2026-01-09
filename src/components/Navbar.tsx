@@ -55,7 +55,7 @@ const Navbar = () => {
                             className="h-10 w-10 object-contain"
                         />
                         <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent">
-                            http.pruthvi
+                            Pruthvi.dev
                         </span>
                     </div>
 

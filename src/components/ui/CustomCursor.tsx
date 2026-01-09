@@ -34,10 +34,7 @@ const CustomCursor = () => {
         };
     }, []);
 
-    // Hide on mobile/touch devices
-    if (typeof navigator !== "undefined" && typeof navigator.maxTouchPoints === "number" && navigator.maxTouchPoints > 0) {
-        return null;
-    }
+
 
     return (
         <>

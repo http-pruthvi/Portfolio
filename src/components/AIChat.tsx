@@ -200,7 +200,7 @@ const AIChat = () => {
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
                                     className="flex-1 bg-transparent border-none outline-none text-cyan-300 placeholder-cyan-800/50"
-                                    autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+                                    autoFocus
                                     spellCheck={false}
                                     autoComplete="off"
                                 />
