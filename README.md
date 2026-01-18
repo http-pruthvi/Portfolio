@@ -1,5 +1,10 @@
 # Pruthvi's Portfolio: A Multiverse of Design
 
+![React](https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
 > **"One developer, infinite personas."**
 
 Welcome to a portfolio that refuses to be defined by a single aesthetic. This project is an exploration of UI/UX versatility, showcasing how the same content can feel completely different through the lens of five unique design philosophies.
@@ -57,6 +62,14 @@ Every "Home" in this portfolio is a fully realized application with its own rule
 This project is built on a modern, type-safe stack designed for performance and scalability.
 
 ### Core Technology
+
+![React](https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/-Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+![Three.js](https://img.shields.io/badge/-Three.js-black?style=for-the-badge&logo=three.js&logoColor=white)
+
 *   **Framework**: [React 18](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/) for robust, component-based architecture.
 *   **Build System**: [Vite](https://vitejs.dev/) for lightning-fast HMR and optimized production builds.
 *   **Styling Engine**: [Tailwind CSS](https://tailwindcss.com/) for utility-first styling, enabling rapid prototyping of completely different themes.
