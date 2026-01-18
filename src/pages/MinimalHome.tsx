@@ -300,7 +300,7 @@ const MinimalHome = () => {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                         <div>
                             <p className="text-neutral-600 text-lg mb-4">Open for opportunities and collaborations.</p>
-                            <a href="mailto:contact@pruthvi.dev" className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white font-bold rounded hover:bg-neutral-800 transition-colors">
+                            <a href="mailto:phusepruthvi@gmail.com" className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white font-bold rounded hover:bg-neutral-800 transition-colors">
                                 <Mail size={18} /> Get in Touch
                             </a>
                         </div>

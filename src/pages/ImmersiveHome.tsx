@@ -16,6 +16,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/ui/CustomCursor";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
 import { GameProvider } from "@/context/GameContext";
+import SpaceShooter from "@/components/game/SpaceShooter";
 
 import Certifications from "@/components/Certifications"; // Restored import
 
@@ -80,7 +81,7 @@ const ImmersiveContent = () => {
     if (gameActive) {
         return (
             <>
-                <Navbar />
+                <SpaceShooter />
                 <PlayerStats />
             </>
         );

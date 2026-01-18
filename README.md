@@ -1,73 +1,112 @@
-# React + TypeScript + Vite
+# Pruthvi's Portfolio: A Multiverse of Design
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-Currently, two official plugins are available:
+> **"One developer, infinite personas."**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Welcome to a portfolio that refuses to be defined by a single aesthetic. This project is an exploration of UI/UX versatility, showcasing how the same content can feel completely different through the lens of five unique design philosophies.
 
-## React Compiler
+Beyond a simple resume, this site is a playground of interactive experiments, hidden easter eggs, and cutting-edge web technologies.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🌌 The Design Multiverse
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Every "Home" in this portfolio is a fully realized application with its own rules, physics, and interactions.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. The Immersive Experience (Gamified & Cinematic)
+*   **Philosophy**: A high-fidelity, deep-dive experience inspired by modern gaming interfaces and sci-fi aesthetics.
+*   **Visuals**: 3D particle systems (`Three.js`), cybernetic overlays, and a heads-up display (HUD) tracking "Player Stats".
+*   **Interactive Secrets**:
+    *   **Warp Speed**: Hold `SPACE` to accelerate the background particles into hyperspace.
+    *   **Konami Code**: Enter `↑ ↑ ↓ ↓ ← → ← → B A` to trigger a massive confetti explosion celebration.
+    *   **Soundscapes**: UI interactions trigger subtle sci-fi sound effects (hover, click, success).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. The Neo-Brutalism Playground (Raw & Bold)
+*   **Philosophy**: "Ugly on purpose." High contrast, heavy borders, and raw, unpolished interactions that scream for attention.
+*   **Visuals**: Stark black-and-white structures with aggressive splashes of cyan, yellow, and magenta. Elements fight for space with hard drop shadows.
+*   **Interactive Secrets**:
+    *   **Chaos Mode**: A "DO NOT PRESS" button that, when tempted, sends the entire UI into a chaotic dance of shakes and color inversions.
+    *   **Destructive Clicks**: Clicking anywhere on the screen fractures the page, leaving behind permanent "cracks" in the digital glass.
+    *   **Rage Detection**: Rapid clicking triggers intense visual feedback.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 3. The Minimalist Studio (Clean & Typography-Driven)
+*   **Philosophy**: "Less is more." A focus on negative space, perfect typography, and breathing room for the content to speak for itself.
+*   **Visuals**: Monochromatic palette, subtle framer motion transitions, and a clean grid layout.
+*   **Interactive Secrets**:
+    *   **The Blue Screen of Death**: Annoyed by the theme toggler? Click the "Moon" icon 10 times rapidly to crash the site into a realistic Windows BSOD (Blue Screen of Death).
+    *   **Invisible Ink**: Hidden messages are scattered throughout the whitespace, only revealed when you highlight/select the text.
+
+### 4. The Retro Terminal (Hacker & CLI)
+*   **Philosophy**: A love letter to the command line. No mouse required (mostly).
+*   **Visuals**: Iconic green/cyan text on a phosphor-burned dark background. Scanlines and CRT flicker included.
+*   **Core Mechanics**:
+    *   **Fully Functional Shell**: Navigate the portfolio using commands like `cd`, `ls`, `cat`, and `help`.
+    *   **Command History**: Use `Up/Down` arrows to cycle through your previous commands.
+    *   **Tab Completion**: (Simulated) directory navigation.
+
+### 5. The Editorial Edition (High Fashion & Print)
+*   **Philosophy**: Web design meets Vogue. Large serif typography, parallax scrolling, and magazine-style layouts.
+*   **Visuals**: Asymmetrical grids, oversized headings (`text-[12vw]`), and elegant scrolling physics.
+*   **Interactive Secrets**:
+    *   **Redaction Mode**: Toggle "Edition 2025" to enter Redaction Mode, allowing you to click and "censor" (black out) any text on the page like a government document.
+    *   **Coffee Stains**: A "Scroll" button that randomly stamps realistic coffee cup rings onto the page, adding a tactile, lived-in feel.
+
+---
+
+## 🛠️ Under the Hood
+
+This project is built on a modern, type-safe stack designed for performance and scalability.
+
+### Core Technology
+
+![React](https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/-Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/-Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+![Three.js](https://img.shields.io/badge/-Three.js-black?style=for-the-badge&logo=three.js&logoColor=white)
+
+*   **Framework**: [React 18](https://react.dev/) with [TypeScript](https://www.typescriptlang.org/) for robust, component-based architecture.
+*   **Build System**: [Vite](https://vitejs.dev/) for lightning-fast HMR and optimized production builds.
+*   **Styling Engine**: [Tailwind CSS](https://tailwindcss.com/) for utility-first styling, enabling rapid prototyping of completely different themes.
+
+### The "Magic" (Libraries & Tools)
+*   **Animation**:
+    *   `Framer Motion`: Powering the complex layout transitions and shared element animations.
+    *   `GSAP` & `Canvas Confetti`: For high-performance particle effects.
+*   **3D & Graphics**:
+    *   `React Three Fiber` (@react-three/fiber): Bringing the Immersive theme's 3D background to life.
+    *   `Drei`: Useful helpers for the 3D ecosystem.
+*   **State Management**: React Context API (ThemeContext, GameContext) handles the global state across the multiverse.
+
+---
+
+## 📂 Architecture Overview
+
+The codebase is structured to isolate specific logic while sharing core data.
+
+```
+src/
+├── components/         # 🧱 UI Building Blocks
+│   ├── spine/          # Shared layout logic for scrolling/sections
+│   ├── ui/             # Theme-specific creative components (GlitchText, CyberOverlay)
+│   └── ...
+├── context/            # 🧠 Global State (Sound, Theme, Game Status)
+├── data/               # 💾 Single Source of Truth (Projects, Experience JSON)
+├── hooks/              # 🎣 Custom Hooks (useKonamiCode, useSoundEffects)
+└── pages/              # 🌍 The 5 Worlds
+    ├── ImmersiveHome.tsx   # 3D & Gaming Logic
+    ├── BrutalHome.tsx      # Neo-Brutalism & Chaos Logic
+    ├── MinimalHome.tsx     # Clean & BSOD Logic
+    └── ...
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📄 License
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Designed & Developed by **Pruthvi**. Open source under the [MIT License](LICENSE).

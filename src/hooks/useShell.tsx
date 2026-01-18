@@ -52,20 +52,35 @@ export const useShell = () => {
         switch (mainCommand) {
             case 'help':
                 addToHistory(cmd, [
-                    "Available commands:",
-                    "  cat [file]     - Read file content",
-                    "  cd [dir]       - Change directory",
-                    "  clear          - Clear terminal history",
-                    "  echo [text]    - Print text",
-                    "  help           - Show this help message",
-                    "  ls             - List directory contents",
-                    "  neofetch       - Display system info",
-                    "  open [url]     - Open URL in new tab",
-                    "  projects       - View projects database",
-                    "  pwd            - Print working directory",
-                    "  theme [name]   - Change terminal theme",
-                    "  whoami         - Display current user",
-                    "  gui            - Exit to standard GUI"
+                    <div key={Date.now()} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
+                        <div>
+                            <div className="text-[#88c0d0] font-bold mb-2">Navigation</div>
+                            <div className="grid grid-cols-[80px_1fr] gap-1">
+                                <span className="text-[#ebcb8b]">cd</span> <span className="text-[#d8dee9]">Change directory</span>
+                                <span className="text-[#ebcb8b]">ls</span> <span className="text-[#d8dee9]">List contents</span>
+                                <span className="text-[#ebcb8b]">pwd</span> <span className="text-[#d8dee9]">Print working directory</span>
+                                <span className="text-[#ebcb8b]">clear</span> <span className="text-[#d8dee9]">Clear screen</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="text-[#88c0d0] font-bold mb-2">System</div>
+                            <div className="grid grid-cols-[80px_1fr] gap-1">
+                                <span className="text-[#ebcb8b]">whoami</span> <span className="text-[#d8dee9]">User info</span>
+                                <span className="text-[#ebcb8b]">neofetch</span> <span className="text-[#d8dee9]">System stats</span>
+                                <span className="text-[#ebcb8b]">gui</span> <span className="text-[#d8dee9]">Switch to graphical modes</span>
+                                <span className="text-[#ebcb8b]">theme</span> <span className="text-[#d8dee9]">Change color scheme</span>
+                            </div>
+                        </div>
+                        <div className="md:col-span-2">
+                            <div className="text-[#88c0d0] font-bold mb-2">Portfolio</div>
+                            <div className="grid grid-cols-[80px_1fr] gap-1">
+                                <span className="text-[#a3be8c]">projects</span> <span className="text-[#d8dee9]">View project gallery</span>
+                                <span className="text-[#a3be8c]">skills</span> <span className="text-[#d8dee9]">Check technical stats</span>
+                                <span className="text-[#a3be8c]">contact</span> <span className="text-[#d8dee9]">Open communication channels</span>
+                                <span className="text-[#a3be8c]">resume</span> <span className="text-[#d8dee9]">Download localized resume</span>
+                            </div>
+                        </div>
+                    </div>
                 ]);
                 break;
 
@@ -74,7 +89,22 @@ export const useShell = () => {
                 break;
 
             case 'whoami':
-                addToHistory(cmd, ["visitor"]);
+                addToHistory(cmd, [
+                    <div key={Date.now()} className="p-4 border border-[#4c566a] rounded-md bg-[#2e3440]/50 max-w-md">
+                        <div className="flex items-center gap-4 mb-4">
+                            <div className="w-16 h-16 rounded-full bg-[#bf616a] flex items-center justify-center text-2xl">👨‍💻</div>
+                            <div>
+                                <div className="text-xl font-bold text-[#88c0d0]">Visitor</div>
+                                <div className="text-xs text-[#d8dee9]">Generic User Role</div>
+                            </div>
+                        </div>
+                        <div className="space-y-2 text-sm text-[#eceff4]">
+                            <div className="flex justify-between"><span>Access Level:</span> <span className="text-[#a3be8c]">Guest</span></div>
+                            <div className="flex justify-between"><span>Session ID:</span> <span className="font-mono text-[#5e81ac]">{Math.random().toString(36).substring(7)}</span></div>
+                            <div className="flex justify-between"><span>Location:</span> <span>Remote Terminal</span></div>
+                        </div>
+                    </div>
+                ]);
                 break;
 
             case 'pwd':
@@ -85,9 +115,14 @@ export const useShell = () => {
                 const dir = getDirectory(currentPath);
                 if (dir && dir.children) {
                     const items = Object.entries(dir.children).map(([name, item]) => {
-                        return item.type === 'directory' ? `<DIR> ${name}` : name;
+                        const isDir = item.type === 'directory';
+                        return (
+                            <span key={name} className={`mr-4 ${isDir ? 'text-[#88c0d0] font-bold' : 'text-[#e5e9f0]'}`}>
+                                {name}{isDir ? '/' : ''}
+                            </span>
+                        );
                     });
-                    addToHistory(cmd, items);
+                    addToHistory(cmd, [<div key={Date.now()} className="flex flex-wrap">{items}</div>]);
                 } else {
                     addToHistory(cmd, [`Error: Cannot list contents of ${currentPath.join('/')}`]);
                 }
@@ -136,6 +171,86 @@ export const useShell = () => {
                 }
                 break;
             }
+
+            case 'projects':
+                addToHistory(cmd, [
+                    <div key={Date.now()} className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+                        {projects.map((p, i) => (
+                            <div key={i} className="border border-[#4c566a] p-3 rounded hover:border-[#88c0d0] transition-colors group">
+                                <div className={`font-bold ${p.color} mb-1 group-hover:underline`}>{p.title}</div>
+                                <div className="text-xs text-[#d8dee9] mb-2">{p.description}</div>
+                                <div className="flex gap-2 text-[10px] uppercase tracking-wider">
+                                    {p.tags.map(tag => <span key={tag} className="bg-[#2e3440] px-1 rounded text-[#8fbcbb]">{tag}</span>)}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ]);
+                break;
+
+            case 'skills': {
+                const skillBar = (name: string, level: number, color: string) => {
+                    const filled = Math.floor(level / 10);
+                    const empty = 10 - filled;
+                    return (
+                        <div key={name} className="flex items-center gap-4 font-mono text-sm max-w-md">
+                            <span className="w-24 shrink-0 text-right text-[#d8dee9]">{name}</span>
+                            <div className="flex-1 flex text-[#4c566a]">
+                                <span className={color}>{'#'.repeat(filled)}</span>
+                                <span>{'-'.repeat(empty)}</span>
+                            </div>
+                            <span className={color}>{level}%</span>
+                        </div>
+                    );
+                };
+
+                addToHistory(cmd, [
+                    <div key={Date.now()} className="space-y-1 my-2">
+                        <div className="text-[#88c0d0] font-bold mb-2">:: TECHNICAL COMPETENCE ::</div>
+                        {skillBar('TypeScript', 90, 'text-[#88c0d0]')}
+                        {skillBar('React / Next', 95, 'text-[#5e81ac]')}
+                        {skillBar('Node.js', 85, 'text-[#a3be8c]')}
+                        {skillBar('Python / AI', 80, 'text-[#bf616a]')}
+                        {skillBar('Rust', 40, 'text-[#d08770]')}
+                        {skillBar('DevOps', 75, 'text-[#ebcb8b]')}
+                    </div>
+                ]);
+                break;
+            }
+
+            case 'resume':
+                addToHistory(cmd, [
+                    <div key={Date.now()} className="my-2">
+                        <div className="text-[#d8dee9] mb-2">Generating download link...</div>
+                        <a
+                            href="/resume.pdf"
+                            download
+                            className="inline-flex items-center gap-2 bg-[#4c566a] hover:bg-[#5e81ac] text-white px-4 py-2 rounded transition-colors"
+                        >
+                            <span>📥</span> Download Resume (PDF)
+                        </a>
+                    </div>
+                ]);
+                break;
+
+            case 'contact':
+                addToHistory(cmd, [
+                    <div key={Date.now()} className="my-2 border-l-2 border-[#a3be8c] pl-4">
+                        <div className="mb-2 text-[#eceff4]">Initiating secure handshake...</div>
+                        <div className="grid gap-2 text-sm">
+                            <a href="mailto:phusepruthvi@gmail.com" className="flex items-center gap-2 hover:text-[#a3be8c] transition-colors">
+                                <span className="text-[#ebcb8b]">✉</span> phusepruthvi@gmail.com
+                            </a>
+                            <a href="https://github.com/http-pruthvi" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#a3be8c] transition-colors">
+                                <span className="text-[#ebcb8b]">⌘</span> github.com/http-pruthvi
+                            </a>
+                            <a href="https://www.linkedin.com/in/pruthviraj-phuse-aa0513324/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#a3be8c] transition-colors">
+                                <span className="text-[#ebcb8b]">💼</span> linkedin.com/in/pruthviraj-phuse
+                            </a>
+                        </div>
+                    </div>
+                ]);
+                break;
 
             case 'neofetch':
                 addToHistory(cmd, [
@@ -199,10 +314,6 @@ export const useShell = () => {
                 ]);
                 break;
 
-            case 'projects':
-                addToHistory(cmd, ["Listing Projects...", ...projects.map(p => `* ${p.title} - ${p.description}`)]);
-                break;
-
             case 'gui':
                 window.location.href = '/';
                 break;
@@ -212,7 +323,7 @@ export const useShell = () => {
                 break;
 
             default:
-                addToHistory(cmd, [`Command not found: ${mainCommand}`]);
+                addToHistory(cmd, [`Command not found: ${mainCommand}. Type 'help' for available commands.`]);
         }
     };
 

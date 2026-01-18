@@ -33,9 +33,9 @@ Tools:     Git, Docker, Figma, VS Code
         content: `
 # Contact Channels
 ----------------
-Email:    contact@pruthvi.dev
+Email:    phusepruthvi@gmail.com
 GitHub:   github.com/http-pruthvi
-LinkedIn: linkedin.com/in/pruthvi
+LinkedIn: linkedin.com/in/pruthviraj-phuse
 Twitter:  @http_pruthvi
 `.trim()
     },
