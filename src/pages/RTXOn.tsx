@@ -148,7 +148,7 @@ const ImmersiveContent = () => {
     );
 };
 
-const ImmersiveHome = () => {
+const RTXOn = () => {
     return (
         <GameProvider>
             <ImmersiveContent />
@@ -156,4 +156,4 @@ const ImmersiveHome = () => {
     );
 };
 
-export default ImmersiveHome;
+export default RTXOn;

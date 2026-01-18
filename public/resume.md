@@ -1,7 +1,7 @@
 # PRUTHVIRAJ PHUSE
 
 **Email:** phusepruthvi@gmail.com | **Phone:** +91 8805765930 | **Location:** India  
-**LinkedIn:** linkedin.com/in/pruthviraj-phuse | **GitHub:** github.com/http-pruthvi
+**LinkedIn:** linkedin.com/in/pruthviraj-phuse-aa0513324/ | **GitHub:** github.com/http-pruthvi
 
 ---
 

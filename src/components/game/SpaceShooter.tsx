@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useGame } from '@/context/GameContext';
+import { useKonamiCode } from '@/hooks/useKonamiCode';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- PIXEL ART ASSETS ---
@@ -26,14 +27,7 @@ const alien2 = [
     [1, 0, 1, 0, 0, 1, 0, 1]
 ];
 // 9x9
-const shipSprite = [
-    [0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 1, 1, 1, 0, 0, 0],
-    [0, 0, 1, 1, 0, 1, 1, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 0],
-    [1, 1, 0, 1, 1, 1, 0, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1]
-];
+// (Removed duplicate shipSprite)
 
 // 16x11 Boss (Mothership)
 const bossSprite = [
@@ -91,44 +85,80 @@ const spreadSprite = [
 const colors = ["#00f3ff", "#bc13fe", "#0F0", "#FF0055"];
 
 // --- TYPES ---
-interface Bullet { x: number; y: number; vx?: number; speed: number; color: string; isEnemy?: boolean; size?: number; }
+interface Bullet { x: number; y: number; vx?: number; speed: number; color: string; isEnemy?: boolean; size?: number; damage?: number; }
 interface Alien { x: number; y: number; type: number; speed: number; color: string; scale: number; hp: number; maxHp: number; isBoss?: boolean; }
 interface Particle { x: number; y: number; vx: number; vy: number; life: number; color: string; size: number; }
-interface PowerUp { x: number; y: number; type: 'health' | 'rapid' | 'shield' | 'spread'; color: string; vy: number; size: number; pulse: number; }
+interface PowerUp { x: number; y: number; type: 'health' | 'rapid' | 'shield' | 'spread' | 'plasma' | 'nuke'; color: string; vy: number; size: number; pulse: number; }
 
-const CAST_SCALE = 4; // Scale for ship
+// --- MARK: CONSTANTS & SPRITES ---
+const CAST_SCALE = 3;
 const ALIEN_SCALE = 3;
+
+// Advanced Fighter (16x16)
+const shipSprite = [
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0],
+    [1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1],
+    [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+    [1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1],
+    [1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1],
+    [1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1],
+    [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0], // Engine Trails (Animated manually?)
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
 
 const SpaceShooter = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const { setGameActive, setScore, setHealth, health, score } = useGame();
     const [gameOver, setGameOver] = useState(false);
+    const [effectStatus, setEffectStatus] = useState({ rapid: false, spread: false, shield: false, plasma: false, godMode: false });
     const [highScore, setHighScore] = useState(0);
 
     // --- Mutable Game State (Refs) ---
     const stateRef = useRef({
         keys: { ArrowLeft: false, ArrowRight: false, ArrowUp: false, ArrowDown: false, Space: false } as Record<string, boolean>,
-        ship: { x: 0, y: 0, vx: 0, vy: 0, width: 9 * CAST_SCALE, height: 6 * CAST_SCALE, speed: 7 }, // Adjusted height for sprite
+        ship: { x: 0, y: 0, vx: 0, vy: 0, width: 16 * CAST_SCALE, height: 16 * CAST_SCALE, speed: 8 }, // Updated size & speed
         bullets: [] as Bullet[],
         aliens: [] as Alien[],
         particles: [] as Particle[],
         powerups: [] as PowerUp[],
         lastShot: 0,
         lastSpawn: 0,
-        activeEffects: { rapidFire: 0, shield: 0, spread: 0 },
+        activeEffects: { rapidFire: 0, shield: 0, spread: 0, plasma: 0, godMode: 0 },
         score: 0,
         health: 100,
         level: 1,
         bossActive: false,
+        isGameOver: false,
         mouseX: 0,
         mouseY: 0,
         isMouseDown: false
     });
 
+    const konami = useKonamiCode();
+
+    useEffect(() => {
+        if (konami) {
+            stateRef.current.activeEffects.godMode = Date.now() + 60000;
+            // Visual flair for activation
+            stateRef.current.particles.push({
+                x: window.innerWidth / 2, y: window.innerHeight / 2,
+                vx: 0, vy: 0, life: 2.0, color: '#FFD700', size: 200
+            });
+        }
+    }, [konami]);
+
     useEffect(() => {
         stateRef.current.score = score;
         stateRef.current.health = health;
-    }, []);
+    }, [score, health]);
 
     // Main Game Loop Effect
     useEffect(() => {
@@ -136,6 +166,7 @@ const SpaceShooter = () => {
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
+        // ... (existing helper functions) ...
 
         const updateDims = () => {
             canvas.width = window.innerWidth;
@@ -146,8 +177,8 @@ const SpaceShooter = () => {
         window.addEventListener('resize', updateDims);
 
         // Inputs
-        const handleKeyDown = (e: KeyboardEvent) => { if (stateRef.current.keys.hasOwnProperty(e.code)) stateRef.current.keys[e.code] = true; };
-        const handleKeyUp = (e: KeyboardEvent) => { if (stateRef.current.keys.hasOwnProperty(e.code)) stateRef.current.keys[e.code] = false; };
+        const handleKeyDown = (e: KeyboardEvent) => { if (Object.prototype.hasOwnProperty.call(stateRef.current.keys, e.code)) stateRef.current.keys[e.code] = true; };
+        const handleKeyUp = (e: KeyboardEvent) => { if (Object.prototype.hasOwnProperty.call(stateRef.current.keys, e.code)) stateRef.current.keys[e.code] = false; };
         const handleMouseMove = (e: MouseEvent) => { stateRef.current.mouseX = e.clientX; stateRef.current.mouseY = e.clientY; };
         const handleMouseDown = () => { stateRef.current.isMouseDown = true; };
         const handleMouseUp = () => { stateRef.current.isMouseDown = false; };
@@ -190,11 +221,55 @@ const SpaceShooter = () => {
 
         const loop = () => {
             const state = stateRef.current;
-            if (state.health <= 0) return;
+            if (state.health <= 0) {
+                if (!state.isGameOver) {
+                    state.isGameOver = true;
+                    setGameOver(true);
+                    const saved = localStorage.getItem('immersive_highscore');
+                    const hScore = saved ? parseInt(saved) : 0;
+                    if (state.score > hScore) {
+                        setHighScore(state.score);
+                        localStorage.setItem('immersive_highscore', state.score.toString());
+                    } else {
+                        setHighScore(hScore);
+                    }
+                }
+                return;
+            }
 
             // Background
             ctx.fillStyle = 'rgba(15, 23, 42, 0.5)'; // Darker trail
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const now = Date.now();
+
+            // Update Effect Status State (Throttled/Checked)
+            const currentEffects = {
+                rapid: state.activeEffects.rapidFire > now,
+                spread: state.activeEffects.spread > now,
+                shield: state.activeEffects.shield > now,
+                plasma: state.activeEffects.plasma > now,
+                godMode: state.activeEffects.godMode > now
+            };
+
+            // We use a ref to track the last emitted status to avoid render spam, 
+            // but since we can't easily access a separate ref here without creating one outside, 
+            // we will rely on React's state setter only triggering render if value changes? 
+            // primitives do, objects don't.
+            // Let's use JSON.stringify check or individual checks in a separate useEffect? 
+            // No, inside the loop is best but we need a persistent way to check 'lastEmitted'.
+            // Actually, `setEffectStatus` with same values *might* skip render if we memoize?
+            // Safer: 
+            setEffectStatus(prev => {
+                if (prev.rapid === currentEffects.rapid &&
+                    prev.spread === currentEffects.spread &&
+                    prev.shield === currentEffects.shield &&
+                    prev.plasma === currentEffects.plasma &&
+                    prev.godMode === currentEffects.godMode) return prev;
+                return currentEffects;
+            });
+
+            // ... (rest of ship logic) ...
 
             // --- 1. SHIP LOGIC ---
             // Input Handling
@@ -242,20 +317,26 @@ const SpaceShooter = () => {
             if (state.ship.y > canvas.height - state.ship.height) { state.ship.y = canvas.height - state.ship.height; state.ship.vy = 0; }
 
             // Shooting
-            const now = Date.now();
+            // const now = Date.now(); // moved up
             const isRapid = state.activeEffects.rapidFire > now;
             const isSpread = state.activeEffects.spread > now;
-            const fireRate = isRapid ? 80 : 180;
+            const isPlasma = state.activeEffects.plasma > now;
+            const fireRate = isRapid ? 50 : 110;
 
             if (now - state.lastShot > fireRate) {
                 const spawnBullet = (offsetX: number, angle: number = 0) => {
+                    const size = isPlasma ? 8 : 4;
+                    const dmg = isPlasma ? 50 : 1;
+                    const col = isPlasma ? '#0f0' : (isRapid ? "#fff" : "#ff0");
+
                     state.bullets.push({
-                        x: state.ship.x + (state.ship.width / 2) - 2 + offsetX,
+                        x: state.ship.x + (state.ship.width / 2) - (size / 2) + offsetX,
                         y: state.ship.y,
                         vx: Math.sin(angle) * 3,
-                        speed: 16,
-                        color: isRapid ? "#fff" : "#ff0",
-                        size: 4
+                        speed: 18,
+                        color: col,
+                        size: size,
+                        damage: dmg
                     });
                 };
                 spawnBullet(0);
@@ -291,7 +372,7 @@ const SpaceShooter = () => {
 
             // --- 3. ALIENS ---
             // Spawn Rate (Faster!)
-            const spawnDelay = state.bossActive ? 1500 : Math.max(200, 800 - state.level * 60);
+            const spawnDelay = state.bossActive ? 1200 : Math.max(100, 300 - state.level * 20);
             if (now - state.lastSpawn > spawnDelay) {
                 if (Math.random() < (state.bossActive ? 0.4 : 0.9)) {
                     state.aliens.push({
@@ -356,12 +437,13 @@ const SpaceShooter = () => {
 
                     if (b.x > a.x && b.x < a.x + aW && b.y > a.y && b.y < a.y + aH) {
                         createExplosion(b.x, b.y, b.color, 3, 2);
-                        a.hp--;
+                        a.hp -= (b.damage || 1);
+                        // Plasma pierces or just high damage? Let's destroy bullet for now unless we add piercing logic
                         state.bullets.splice(j, 1);
 
                         if (a.hp <= 0) {
                             createExplosion(a.x + aW / 2, a.y + aH / 2, a.color, a.isBoss ? 50 : 15, a.isBoss ? 5 : 3);
-                            const pts = a.isBoss ? 2000 : 100;
+                            const pts = a.isBoss ? 5000 : 100;
                             state.score += pts;
                             setScore(s => s + pts);
 
@@ -369,10 +451,17 @@ const SpaceShooter = () => {
                             if (a.isBoss) {
                                 state.bossActive = false;
                                 stateRef.current.powerups.push({ x: a.x + aW / 2, y: a.y + aH / 2, type: 'spread', color: '#a0f', vy: 2, size: 25, pulse: 0 });
-                            } else if (Math.random() < 0.4) {
-                                const types: PowerUp['type'][] = ['health', 'rapid', 'shield', 'spread'];
+                            } else if (Math.random() < 0.35) {
+                                const types: PowerUp['type'][] = ['health', 'rapid', 'shield', 'spread', 'plasma', 'nuke'];
                                 const type = types[Math.floor(Math.random() * types.length)];
-                                const col = type === 'health' ? '#0f0' : type === 'rapid' ? '#ff0' : type === 'shield' ? '#0ff' : '#a0f';
+                                let col = '#fff';
+                                if (type === 'health') col = '#0f0';
+                                if (type === 'rapid') col = '#ff0';
+                                if (type === 'shield') col = '#0ff';
+                                if (type === 'spread') col = '#a0f';
+                                if (type === 'plasma') col = '#0f0'; // Plasma Green
+                                if (type === 'nuke') col = '#f00';   // Nuke Red
+
                                 stateRef.current.powerups.push({ x: a.x, y: a.y, type, color: col, vy: 2, size: 20, pulse: 0 });
                             }
                             state.aliens.splice(i, 1);
@@ -384,8 +473,9 @@ const SpaceShooter = () => {
                 // Collision (Alien -> Player)
                 if (state.ship.x < a.x + aW && state.ship.x + state.ship.width > a.x &&
                     state.ship.y < a.y + aH && state.ship.y + state.ship.height > a.y) {
-
-                    if (state.activeEffects.shield > now) {
+                    if (state.activeEffects.godMode > now) {
+                        // God Mode Immunity
+                    } else if (state.activeEffects.shield > now) {
                         createExplosion(a.x, a.y, '#0ff', 10, 3);
                         if (!a.isBoss) state.aliens.splice(i, 1);
                     } else {
@@ -403,7 +493,9 @@ const SpaceShooter = () => {
                     if (!eb.isEnemy) continue;
                     if (eb.x > state.ship.x && eb.x < state.ship.x + state.ship.width &&
                         eb.y > state.ship.y && eb.y < state.ship.y + state.ship.height) {
-                        if (state.activeEffects.shield > now) {
+                        if (state.activeEffects.godMode > now) {
+                            state.bullets.splice(k, 1); // Absorb without damage
+                        } else if (state.activeEffects.shield > now) {
                             state.bullets.splice(k, 1); // Absorb
                         } else {
                             state.health -= 15;
@@ -430,6 +522,9 @@ const SpaceShooter = () => {
                 if (p.type === 'rapid') sprite = boltSprite;
                 if (p.type === 'shield') sprite = shieldSprite;
                 if (p.type === 'spread') sprite = spreadSprite;
+                // Reuse sprites for new types or add color tint
+                if (p.type === 'plasma') sprite = shieldSprite; // Recycle for now
+                if (p.type === 'nuke') sprite = spreadSprite;   // Recycle for now
 
                 // Draw centered
                 const px = p.x - (3.5 * scale); // 7 width/2
@@ -443,6 +538,22 @@ const SpaceShooter = () => {
                     else if (p.type === 'rapid') state.activeEffects.rapidFire = now + 5000;
                     else if (p.type === 'shield') state.activeEffects.shield = now + 8000;
                     else if (p.type === 'spread') state.activeEffects.spread = now + 6000;
+                    else if (p.type === 'plasma') state.activeEffects.plasma = now + 8000;
+                    else if (p.type === 'nuke') {
+                        // Nuke Logic: Kill all non-boss aliens
+                        for (let k = state.aliens.length - 1; k >= 0; k--) {
+                            if (!state.aliens[k].isBoss) {
+                                createExplosion(state.aliens[k].x, state.aliens[k].y, state.aliens[k].color, 20, 5);
+                                state.score += 100;
+                                setScore(s => s + 100);
+                                state.aliens.splice(k, 1);
+                            } else {
+                                state.aliens[k].hp -= 100; // Damage boss
+                            }
+                        }
+                        // Flash effect
+                        createExplosion(canvas.width / 2, canvas.height / 2, '#fff', 50, 10);
+                    }
 
                     createExplosion(p.x, p.y, p.color, 15);
                     state.powerups.splice(i, 1);
@@ -465,6 +576,7 @@ const SpaceShooter = () => {
             // Player Health Bar (Left)
             ctx.fillStyle = 'rgba(0,0,0,0.5)';
             ctx.fillRect(20, 20, 204, 20); // BG
+            // ... (rest of HUD) ...
             ctx.fillStyle = `hsl(${Math.max(0, state.health)}, 100%, 50%)`; // Red to Green hue
             ctx.fillRect(22, 22, state.health * 2, 16);
             ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.strokeRect(20, 20, 204, 20);
@@ -490,8 +602,10 @@ const SpaceShooter = () => {
 
                 ctx.strokeStyle = '#fff'; ctx.strokeRect(bx, 60, bw, bh);
                 ctx.textAlign = 'center'; ctx.fillStyle = '#fff';
-                ctx.fillText(`⚠ MOTHERSHIP DETECTED ⚠`, canvas.width / 2, 50);
+                ctx.fillText(`⚠ MOTHERSHIP DETECTED ⚠`, canvas.width /
+                    2, 50);
             }
+
 
             animationFrameId = requestAnimationFrame(loop);
         };
@@ -507,22 +621,12 @@ const SpaceShooter = () => {
             cancelAnimationFrame(animationFrameId);
         };
 
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // Game Over Trigger
-    useEffect(() => {
-        if (health <= 0 && !gameOver) {
-            setGameOver(true);
-            const saved = localStorage.getItem('immersive_highscore');
-            const hScore = saved ? parseInt(saved) : 0;
-            if (score > hScore) {
-                setHighScore(score);
-                localStorage.setItem('immersive_highscore', score.toString());
-            } else {
-                setHighScore(hScore);
-            }
-        }
-    }, [health, score, gameOver]);
+
+
+    // Removed the separate Game Over Effect since it's handled in the loop now to prevent lint errors
+    // and ensuring state synchronization is cleaner.
 
     return (
         <div className="fixed inset-0 z-40 bg-slate-950/80 cursor-crosshair overflow-hidden backdrop-blur-sm">
@@ -530,9 +634,11 @@ const SpaceShooter = () => {
 
             {/* Effect Status Icons */}
             <div className="absolute top-16 left-6 flex flex-col gap-2 pointer-events-none">
-                {stateRef.current.activeEffects.rapidFire > Date.now() && <div className="text-yellow-400 font-bold text-shadow shine">⚡ RAPID</div>}
-                {stateRef.current.activeEffects.spread > Date.now() && <div className="text-purple-400 font-bold text-shadow shine">🚀 SPREAD</div>}
-                {stateRef.current.activeEffects.shield > Date.now() && <div className="text-cyan-400 font-bold text-shadow shine">🛡 SHIELD</div>}
+                {effectStatus.rapid && <div className="text-yellow-400 font-bold text-shadow shine">⚡ RAPID</div>}
+                {effectStatus.spread && <div className="text-purple-400 font-bold text-shadow shine">🚀 SPREAD</div>}
+                {effectStatus.shield && <div className="text-cyan-400 font-bold text-shadow shine">🛡 SHIELD</div>}
+                {effectStatus.plasma && <div className="text-green-400 font-bold text-shadow shine">🟢 PLASMA</div>}
+                {effectStatus.godMode && <div className="text-yellow-500 font-black text-2xl text-shadow shine animate-pulse">👑 GOD MODE</div>}
             </div>
 
             <AnimatePresence>
@@ -556,6 +662,7 @@ const SpaceShooter = () => {
                                         stateRef.current.bullets = []; stateRef.current.aliens = []; stateRef.current.powerups = [];
                                         stateRef.current.bossActive = false;
                                         stateRef.current.ship.x = window.innerWidth / 2;
+                                        stateRef.current.isGameOver = false;
                                         setGameOver(false);
                                     }}
                                     className="px-8 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-bold tracking-wider transition-all hover:scale-105 shadow-[0_0_20px_rgba(34,211,238,0.3)]"

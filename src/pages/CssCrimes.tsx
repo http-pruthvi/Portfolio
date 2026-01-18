@@ -28,7 +28,7 @@ const BrutalCard = ({ title, children, className = "" }: { title?: string; child
     </div>
 );
 
-const BrutalHome = () => {
+const CssCrimes = () => {
     const [chaos, setChaos] = useState(false);
     const [clickCount, setClickCount] = useState(0);
     const [cracks, setCracks] = useState<{ x: number, y: number, r: number }[]>([]);
@@ -249,4 +249,4 @@ const BrutalHome = () => {
     );
 };
 
-export default BrutalHome;
+export default CssCrimes;

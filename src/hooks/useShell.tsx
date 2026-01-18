@@ -245,7 +245,7 @@ export const useShell = () => {
                                 <span className="text-[#ebcb8b]">⌘</span> github.com/http-pruthvi
                             </a>
                             <a href="https://www.linkedin.com/in/pruthviraj-phuse-aa0513324/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-[#a3be8c] transition-colors">
-                                <span className="text-[#ebcb8b]">💼</span> linkedin.com/in/pruthviraj-phuse
+                                <span className="text-[#ebcb8b]">💼</span> linkedin.com/in/pruthviraj-phuse-aa0513324
                             </a>
                         </div>
                     </div>

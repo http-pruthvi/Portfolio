@@ -6,7 +6,7 @@ import { skills } from "@/data/skills";
 import { certifications } from "@/data/certifications";
 import { socials } from "@/data/socials";
 
-const EditorialHome = () => {
+const Redacted = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -214,4 +214,4 @@ const EditorialHome = () => {
     );
 };
 
-export default EditorialHome;
+export default Redacted;

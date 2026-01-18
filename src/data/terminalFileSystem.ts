@@ -32,11 +32,11 @@ Tools:     Git, Docker, Figma, VS Code
         type: 'file',
         content: `
 # Contact Channels
-----------------
-Email:    phusepruthvi@gmail.com
-GitHub:   github.com/http-pruthvi
-LinkedIn: linkedin.com/in/pruthviraj-phuse
-Twitter:  @http_pruthvi
+----------------You can reach me at:
+- Email: phusepruthvi@gmail.com
+- GitHub: github.com/http-pruthvi
+- LinkedIn: linkedin.com/in/pruthviraj-phuse-aa0513324/
+- Twitter: @pruthvi_dev
 `.trim()
     },
     'projects': {

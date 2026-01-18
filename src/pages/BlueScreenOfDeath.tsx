@@ -44,7 +44,7 @@ const MinimalGitHub = () => {
     );
 };
 
-const MinimalHome = () => {
+const BlueScreenOfDeath = () => {
     const [clickCount, setClickCount] = useState(0);
     const [showBSOD, setShowBSOD] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -322,4 +322,4 @@ const MinimalHome = () => {
     );
 };
 
-export default MinimalHome;
+export default BlueScreenOfDeath;

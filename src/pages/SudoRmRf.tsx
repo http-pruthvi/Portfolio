@@ -3,7 +3,7 @@ import { useShell } from "@/hooks/useShell";
 import { Terminal as TerminalIcon } from "lucide-react";
 import { customAsciiArt } from "@/data/asciiArt";
 
-const TerminalHome = () => {
+const SudoRmRf = () => {
     const { history, currentPath, processCommand, getPreviousCommand, getNextCommand } = useShell();
     const [input, setInput] = useState("");
     const bottomRef = useRef<HTMLDivElement>(null);
@@ -116,4 +116,4 @@ const TerminalHome = () => {
     );
 };
 
-export default TerminalHome;
+export default SudoRmRf;

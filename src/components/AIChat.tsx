@@ -66,7 +66,7 @@ const AIChat = () => {
             response = "LOADING PROJECT DATABASE...\n1. AI Plant Disease Detection\n2. ASTRA (Smart AI Assistant)\n3. ItoBound (Intelligent Dating App)\n\nRun 'open [project_name]' or ask about them for details.";
         }
         else if (contains(["contact", "email", "reach", "hire", "github", "linkedin"])) {
-            response = "ESTABLISHING COMMS...\nEmail: phusepruthvi@gmail.com\nLinkedIn: linkedin.com/in/http-pruthvi\nGitHub: github.com/http-pruthvi\nInstagram: instagram.com/http_pruthvi\nSignal strength: STRONG";
+            response = "ESTABLISHING COMMS...\n- GitHub: https://github.com/http-pruthvi\n- LinkedIn: https://www.linkedin.com/in/pruthviraj-phuse-aa0513324/\n- Email: phusepruthvi@gmail.com\nSignal strength: STRONG";
         }
         else if (contains(["resume", "cv", "download resume"])) {
             response = "RESUME FILE FOUND.\nPath: /public/resume.pdf\nAction: Redirecting to resume section...\n(You can click the 'Resume' link in the navbar)";

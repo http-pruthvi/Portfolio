@@ -3,12 +3,12 @@ import { Toaster } from "react-hot-toast";
 
 
 // Pages
-import Welcome from "@/pages/Welcome";
-import ImmersiveHome from "@/pages/ImmersiveHome";
-import MinimalHome from "@/pages/MinimalHome";
-import BrutalHome from "@/pages/BrutalHome";
-import TerminalHome from "@/pages/TerminalHome";
-import EditorialHome from "@/pages/EditorialHome";
+import ChooseYourBios from "@/pages/ChooseYourBios";
+import RTXOn from "@/pages/RTXOn";
+import BlueScreenOfDeath from "@/pages/BlueScreenOfDeath";
+import CssCrimes from "@/pages/CssCrimes";
+import SudoRmRf from "@/pages/SudoRmRf";
+import Redacted from "@/pages/Redacted";
 
 import Resume from "@/components/Resume";
 
@@ -22,14 +22,13 @@ function App() {
         <Toaster position="bottom-right" />
         <StyleSwitcher />
         <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/immersive" element={<ImmersiveHome />} />
-          <Route path="/minimal" element={<MinimalHome />} />
-          <Route path="/minimal" element={<MinimalHome />} />
-          <Route path="/brutal" element={<BrutalHome />} />
-          <Route path="/brutal" element={<BrutalHome />} />
-          <Route path="/terminal" element={<TerminalHome />} />
-          <Route path="/editorial" element={<EditorialHome />} />
+          {/* Route for the "Choose Your Bios" screen */}
+          <Route path="/" element={<ChooseYourBios />} />
+          <Route path="/immersive" element={<RTXOn />} />
+          <Route path="/minimal" element={<BlueScreenOfDeath />} />
+          <Route path="/brutal" element={<CssCrimes />} />
+          <Route path="/terminal" element={<SudoRmRf />} />
+          <Route path="/editorial" element={<Redacted />} />
           <Route path="/resume" element={<Resume />} />
         </Routes>
       </main>
