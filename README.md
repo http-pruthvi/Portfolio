@@ -15,45 +15,53 @@ Beyond a simple resume, this site is a playground of interactive experiments, hi
 
 ## 🌌 The Design Multiverse
 
-Every "Home" in this portfolio is a fully realized application with its own rules, physics, and interactions.
+Every "Home" in this portfolio is a fully realized application with its own rules, physics, and interactions. We've even renamed the source code to match the "Meme Energy" of each page.
 
-### 1. The Immersive Experience (Gamified & Cinematic)
+### 0. The Entry Point: Choose Your Bios
+*   **File**: `ChooseYourBios.tsx`
+*   **Philosophy**: A "Select Your Fighter" style menu screen where users choose their preferred interface.
+*   **Visuals**: Classic arcade selection screen meets modern web design.
+
+### 1. RTX ON (Immersive Experience)
+*   **File**: `RTXOn.tsx` (formerly `ImmersiveHome.tsx`)
 *   **Philosophy**: A high-fidelity, deep-dive experience inspired by modern gaming interfaces and sci-fi aesthetics.
 *   **Visuals**: 3D particle systems (`Three.js`), cybernetic overlays, and a heads-up display (HUD) tracking "Player Stats".
 *   **Interactive Secrets**:
     *   **Warp Speed**: Hold `SPACE` to accelerate the background particles into hyperspace.
     *   **Konami Code**: Enter `↑ ↑ ↓ ↓ ← → ← → B A` to trigger a massive confetti explosion celebration.
-    *   **Soundscapes**: UI interactions trigger subtle sci-fi sound effects (hover, click, success).
+    *   **Soundscapes**: UI interactions trigger subtle sci-fi sound effects.
 
-### 2. The Neo-Brutalism Playground (Raw & Bold)
+### 2. CSS CRIMES (Neo-Brutalism)
+*   **File**: `CssCrimes.tsx` (formerly `BrutalHome.tsx`)
 *   **Philosophy**: "Ugly on purpose." High contrast, heavy borders, and raw, unpolished interactions that scream for attention.
-*   **Visuals**: Stark black-and-white structures with aggressive splashes of cyan, yellow, and magenta. Elements fight for space with hard drop shadows.
+*   **Visuals**: Stark black-and-white structures with aggressive splashes of cyan, yellow, and magenta.
 *   **Interactive Secrets**:
     *   **Chaos Mode**: A "DO NOT PRESS" button that, when tempted, sends the entire UI into a chaotic dance of shakes and color inversions.
     *   **Destructive Clicks**: Clicking anywhere on the screen fractures the page, leaving behind permanent "cracks" in the digital glass.
-    *   **Rage Detection**: Rapid clicking triggers intense visual feedback.
 
-### 3. The Minimalist Studio (Clean & Typography-Driven)
-*   **Philosophy**: "Less is more." A focus on negative space, perfect typography, and breathing room for the content to speak for itself.
+### 3. BLUE SCREEN OF DEATH (Minimalist)
+*   **File**: `BlueScreenOfDeath.tsx` (formerly `MinimalHome.tsx`)
+*   **Philosophy**: "Less is more." ...Until it crashes. A focus on negative space and perfect typography.
 *   **Visuals**: Monochromatic palette, subtle framer motion transitions, and a clean grid layout.
 *   **Interactive Secrets**:
-    *   **The Blue Screen of Death**: Annoyed by the theme toggler? Click the "Moon" icon 10 times rapidly to crash the site into a realistic Windows BSOD (Blue Screen of Death).
+    *   **The Crash**: Annoyed by the theme toggler? Click the "Moon" icon 10 times rapidly to crash the site into a realistic Windows BSOD.
     *   **Invisible Ink**: Hidden messages are scattered throughout the whitespace, only revealed when you highlight/select the text.
 
-### 4. The Retro Terminal (Hacker & CLI)
+### 4. SUDO RM -RF (Retro Terminal)
+*   **File**: `SudoRmRf.tsx` (formerly `TerminalHome.tsx`)
 *   **Philosophy**: A love letter to the command line. No mouse required (mostly).
 *   **Visuals**: Iconic green/cyan text on a phosphor-burned dark background. Scanlines and CRT flicker included.
 *   **Core Mechanics**:
     *   **Fully Functional Shell**: Navigate the portfolio using commands like `cd`, `ls`, `cat`, and `help`.
     *   **Command History**: Use `Up/Down` arrows to cycle through your previous commands.
-    *   **Tab Completion**: (Simulated) directory navigation.
 
-### 5. The Editorial Edition (High Fashion & Print)
-*   **Philosophy**: Web design meets Vogue. Large serif typography, parallax scrolling, and magazine-style layouts.
-*   **Visuals**: Asymmetrical grids, oversized headings (`text-[12vw]`), and elegant scrolling physics.
+### 5. REDACTED (Editorial Edition)
+*   **File**: `Redacted.tsx` (formerly `EditorialHome.tsx`)
+*   **Philosophy**: Web design meets confidential government files. Large serif typography and parallax scrolling.
+*   **Visuals**: Asymmetrical grids, oversized headings, and elegant scrolling physics.
 *   **Interactive Secrets**:
-    *   **Redaction Mode**: Toggle "Edition 2025" to enter Redaction Mode, allowing you to click and "censor" (black out) any text on the page like a government document.
-    *   **Coffee Stains**: A "Scroll" button that randomly stamps realistic coffee cup rings onto the page, adding a tactile, lived-in feel.
+    *   **Redaction Mode**: Toggle "Edition 2025" to enter Redaction Mode, allowing you to click and "censor" (black out) any text on the page.
+    *   **Coffee Stains**: A "Scroll" button that randomly stamps realistic coffee cup rings onto the page.
 
 ---
 
@@ -87,7 +95,7 @@ This project is built on a modern, type-safe stack designed for performance and 
 
 ## 📂 Architecture Overview
 
-The codebase is structured to isolate specific logic while sharing core data.
+The codebase is structured to isolate specific logic while sharing core data. The filenames themselves have been updated to reflect the "personality" of the code they contain.
 
 ```
 src/
@@ -98,11 +106,13 @@ src/
 ├── context/            # 🧠 Global State (Sound, Theme, Game Status)
 ├── data/               # 💾 Single Source of Truth (Projects, Experience JSON)
 ├── hooks/              # 🎣 Custom Hooks (useKonamiCode, useSoundEffects)
-└── pages/              # 🌍 The 5 Worlds
-    ├── ImmersiveHome.tsx   # 3D & Gaming Logic
-    ├── BrutalHome.tsx      # Neo-Brutalism & Chaos Logic
-    ├── MinimalHome.tsx     # Clean & BSOD Logic
-    └── ...
+└── pages/              # 🌍 The 5 Worlds (Renamed)
+    ├── ChooseYourBios.tsx  # SELECT YOUR FIGHTER (Entry Point)
+    ├── RTXOn.tsx           # Immersive / 3D
+    ├── CssCrimes.tsx       # Neo-Brutalism / Chaos
+    ├── BlueScreenOfDeath.tsx # Minimal / BSOD
+    ├── SudoRmRf.tsx        # Terminal / CLI
+    └── Redacted.tsx        # Editorial / Censored
 ```
 
 ---
