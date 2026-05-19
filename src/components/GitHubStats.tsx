@@ -12,6 +12,33 @@ interface GitHubRepo {
     topics: string[];
 }
 
+const repoMetadataOverrides: Record<string, { description: string; topics: string[] }> = {
+    "Portfolio": {
+        description: "My personal interactive 3D digital developer portfolio built with React, Three.js, Tailwind, and custom Retro OS themes.",
+        topics: ["React", "ThreeJS", "TailwindCSS", "CreativeCoding"]
+    },
+    "TechSensei": {
+        description: "AI-driven developer interview preparation and skill assessment suite with real-time feedback.",
+        topics: ["React", "GenerativeAI", "NodeJS", "TailwindCSS"]
+    },
+    "Campus_Connect": {
+        description: "Complete student collaboration and campus automation ecosystem using Firebase and real-time synchronization.",
+        topics: ["React", "Firebase", "Realtime", "TailwindCSS"]
+    },
+    "eleas": {
+        description: "AI-powered election education platform with interactive timelines, quizzes, and real-time guides.",
+        topics: ["HTML5", "CSS3", "JavaScript", "GeminiAI"]
+    },
+    "FairScan": {
+        description: "Decentralized document verification and scanning system using advanced computer vision pipelines.",
+        topics: ["Python", "OpenCV", "Flask", "React"]
+    },
+    "GameMaster": {
+        description: "Deterministic LLM-driven Game Master framework deployed on Hugging Face Spaces for interactive storytelling.",
+        topics: ["PyTorch", "HuggingFace", "Python", "LLMs"]
+    }
+};
+
 const GitHubStats = () => {
     const username = "http-pruthvi";
     const [repos, setRepos] = useState<GitHubRepo[]>([]);
@@ -22,9 +49,24 @@ const GitHubStats = () => {
         fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`)
             .then((res) => res.json())
             .then((data) => {
-                setRepos(data.slice(0, 6));
-                const totalStars = data.reduce((acc: number, repo: GitHubRepo) => acc + repo.stargazers_count, 0);
-                setStats(prev => ({ ...prev, stars: totalStars }));
+                if (Array.isArray(data)) {
+                    const mapped = data.slice(0, 6).map((repo: GitHubRepo) => {
+                        const nameKey = Object.keys(repoMetadataOverrides).find(
+                            key => key.toLowerCase() === repo.name.toLowerCase()
+                        );
+                        if (nameKey) {
+                            return {
+                                ...repo,
+                                description: repo.description || repoMetadataOverrides[nameKey].description,
+                                topics: (repo.topics && repo.topics.length > 0) ? repo.topics : repoMetadataOverrides[nameKey].topics
+                            };
+                        }
+                        return repo;
+                    });
+                    setRepos(mapped);
+                    const totalStars = data.reduce((acc: number, repo: GitHubRepo) => acc + repo.stargazers_count, 0);
+                    setStats(prev => ({ ...prev, stars: totalStars }));
+                }
             })
             .catch((err) => console.error("GitHub API Error:", err));
 
