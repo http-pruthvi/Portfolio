@@ -80,7 +80,7 @@ const CssCrimes = () => {
                     rotate: [0, -5, 5, -5, 5, 0],
                     filter: ["hue-rotate(0deg)", "hue-rotate(90deg)", "hue-rotate(180deg)", "hue-rotate(270deg)", "hue-rotate(0deg)"]
                 } : {}}
-                transition={{ duration: 0.5, repeat: chaos ? Infinity : 0 }}
+                transition={{ duration: 0.5, repeat: chaos ? Infinity : 0 , ease: [0.16, 1, 0.3, 1]}}
             >
                 {/* Header */}
                 <nav className="flex justify-between items-center p-4 md:p-8 bg-white border-b-4 border-black sticky top-0 z-50">
@@ -136,7 +136,7 @@ const CssCrimes = () => {
 
                         <div className="relative">
                             <BrutalCard className="bg-zinc-100 rotate-[-2deg] z-10 relative">
-                                <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" alt="Coding" className="w-full border-4 border-black grayscale contrast-125" />
+                                <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" alt="Coding" loading="lazy" className="w-full border-4 border-black grayscale contrast-125" />
                             </BrutalCard>
                             <div className="absolute inset-0 bg-yellow-400 border-4 border-black translate-x-4 translate-y-4 -z-0" />
                         </div>
@@ -175,7 +175,7 @@ const CssCrimes = () => {
                             {projects.map((project, i) => (
                                 <BrutalCard key={i} className={`gap-4 flex flex-col ${i % 2 === 0 ? 'bg-orange-300' : 'bg-green-300'} ${i % 2 === 0 ? '-rotate-1' : 'rotate-1'}`}>
                                     <div className="border-4 border-black overflow-hidden relative group">
-                                        <img src={project.image} className="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition-all duration-300" />
+                                        <img src={project.image} alt={project.title} loading="lazy" className="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition-all duration-300" />
                                         <div className="absolute top-2 right-2 bg-white border-2 border-black px-2 font-bold uppercase text-xs">
                                             {project.tags[0]}
                                         </div>
@@ -200,7 +200,7 @@ const CssCrimes = () => {
                         <BrutalCard className="bg-white" title="Experience Log">
                             <div className="space-y-8">
                                 {experience.map((exp, i) => (
-                                    <div key={i} className="flex flex-col md:flex-row gap-4 border-b-4 border-black pb-8 last:border-0 last:pb-0">
+                                    <a href={exp.link || "#"} target="_blank" rel="noopener noreferrer" key={i} className="flex flex-col md:flex-row gap-4 border-b-4 border-black pb-8 last:border-0 last:pb-0 hover:bg-black/5 hover:scale-105 p-4 -m-4 transition-all cursor-pointer">
                                         <div className="md:w-1/4">
                                             <span className="inline-block bg-black text-white px-3 py-1 font-bold text-sm transform -rotate-2">
                                                 {exp.period}
@@ -211,7 +211,7 @@ const CssCrimes = () => {
                                             <div className="text-xl font-bold text-gray-600 mb-2">@{exp.company}</div>
                                             <p className="font-medium">{exp.description}</p>
                                         </div>
-                                    </div>
+                                    </a>
                                 ))}
                             </div>
                         </BrutalCard>

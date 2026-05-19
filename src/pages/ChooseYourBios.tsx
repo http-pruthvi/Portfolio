@@ -79,7 +79,7 @@ const ChooseYourBios = () => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                     className="mb-12"
                 >
                     <h2 className="text-cyan-500 font-bold tracking-[0.5em] text-sm md:text-base mb-2 uppercase animate-pulse">
@@ -98,7 +98,7 @@ const ChooseYourBios = () => {
                             onClick={() => navigate(fighter.path)}
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: i * 0.1 }}
+                            transition={{ delay: i * 0.1 , ease: [0.16, 1, 0.3, 1]}}
                             whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.05)" }}
                             whileTap={{ scale: 0.95 }}
                             className="group relative h-64 border border-zinc-800 bg-zinc-900/40 backdrop-blur-sm p-6 text-left flex flex-col justify-between overflow-hidden hover:border-cyan-500/50 transition-colors"

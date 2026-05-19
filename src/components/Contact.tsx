@@ -52,7 +52,7 @@ const Contact = () => {
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                         viewport={{ once: true }}
                     >
                         <h3 className="text-2xl font-bold text-white mb-6">Let's Collaborate</h3>
@@ -111,7 +111,7 @@ const Contact = () => {
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                         viewport={{ once: true }}
                         className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/5"
                     >

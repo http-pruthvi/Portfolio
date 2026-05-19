@@ -1,5 +1,6 @@
 import { PinContainer } from "@/components/ui/3d-pin";
 import { Github, Play } from "lucide-react";
+import { motion } from "framer-motion";
 
 import { projects } from "@/data/projects";
 
@@ -10,18 +11,31 @@ const Projects = () => {
             <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center mb-[55px]">
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-center mb-[55px]"
+                >
                     <h2 className="text-[32px] md:text-[42px] lg:text-[52px] font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 mb-[21px]">
                         Featured Projects
                     </h2>
                     <p className="text-neutral-400 text-[16px] max-w-2xl mx-auto">
                         A selection of my recent work in AI, Mobile, and Web Development
                     </p>
-                </div>
+                </motion.div>
 
                 <div className="flex flex-wrap items-center justify-center gap-16 mt-10">
                     {projects.map((project, index) => (
-                        <div key={index} className="h-[25rem] w-[20rem] flex items-center justify-center sm:w-96 w-80">
+                        <motion.div 
+                            key={index} 
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            className="h-[25rem] w-[20rem] flex items-center justify-center sm:w-96 w-80"
+                        >
                             <PinContainer
                                 title="View Project"
                                 href={project.github}
@@ -39,6 +53,7 @@ const Projects = () => {
                                         <img
                                             src={project.image}
                                             alt={project.title}
+                                            loading="lazy"
                                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
@@ -62,7 +77,7 @@ const Projects = () => {
                                     </div>
                                 </div>
                             </PinContainer>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

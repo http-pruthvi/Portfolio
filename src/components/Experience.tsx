@@ -7,9 +7,15 @@ const Experience = () => {
     return (
         <section id="experience" className="py-20 relative overflow-hidden">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl md:text-5xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+                <motion.h2 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-3xl md:text-5xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
+                >
                     Experience & Education
-                </h2>
+                </motion.h2>
 
                 <div className="relative space-y-12">
                     {/* Vertical Line */}
@@ -20,8 +26,8 @@ const Experience = () => {
                             key={index}
                             initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.2 }}
-                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: index * 0.2, ease: [0.16, 1, 0.3, 1] }}
+                            viewport={{ once: true, margin: "-50px" }}
                             className={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
                                 }`}
                         >
@@ -35,7 +41,14 @@ const Experience = () => {
                             </div>
 
                             {/* Content Card */}
-                            <div className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? "md:pr-12" : "md:pl-12"}`}>
+                            <motion.a 
+                                href={item.link || "#"}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className={`ml-12 md:ml-0 md:w-1/2 block cursor-pointer ${index % 2 === 0 ? "md:pr-12" : "md:pl-12"}`}
+                            >
                                 <div className="bg-neutral-900/50 p-6 rounded-xl border border-white/10 hover:border-cyan-500/30 transition-colors">
                                     <span className="inline-block px-3 py-1 text-xs rounded-full bg-white/5 text-neutral-400 mb-2">
                                         {item.period}
@@ -44,7 +57,7 @@ const Experience = () => {
                                     <p className="text-cyan-400 text-sm mb-3">{item.company}</p>
                                     <p className="text-neutral-400 text-sm">{item.description}</p>
                                 </div>
-                            </div>
+                            </motion.a>
                         </motion.div>
                     ))}
                 </div>

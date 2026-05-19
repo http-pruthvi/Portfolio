@@ -18,15 +18,25 @@ const GitHubStats = () => {
     const [stats, setStats] = useState({ repos: 0, stars: 0 });
 
     useEffect(() => {
-        // Fetch user repos
+        // Fetch top 6 repos for display
         fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`)
             .then((res) => res.json())
             .then((data) => {
                 setRepos(data.slice(0, 6));
                 const totalStars = data.reduce((acc: number, repo: GitHubRepo) => acc + repo.stargazers_count, 0);
-                setStats({ repos: data.length, stars: totalStars });
+                setStats(prev => ({ ...prev, stars: totalStars }));
             })
             .catch((err) => console.error("GitHub API Error:", err));
+
+        // Fetch user profile for accurate total repo count
+        fetch(`https://api.github.com/users/${username}`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.public_repos !== undefined) {
+                    setStats(prev => ({ ...prev, repos: data.public_repos }));
+                }
+            })
+            .catch((err) => console.error("GitHub User API Error:", err));
     }, []);
 
     return (
@@ -39,7 +49,7 @@ const GitHubStats = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
@@ -56,7 +66,7 @@ const GitHubStats = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
+                        transition={{ duration: 0.5, delay: 0.1 , ease: [0.16, 1, 0.3, 1]}}
                         viewport={{ once: true }}
                         className="bg-white/5 p-6 rounded-2xl border border-white/5 backdrop-blur-sm"
                     >
@@ -64,13 +74,13 @@ const GitHubStats = () => {
                             <Github className="text-cyan-400" size={24} />
                             <h3 className="text-lg font-semibold text-white">Repositories</h3>
                         </div>
-                        <p className="text-4xl font-bold text-cyan-400">{stats.repos}+</p>
+                        <p className="text-4xl font-bold text-cyan-400">{stats.repos}</p>
                     </motion.div>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        transition={{ duration: 0.5, delay: 0.2 , ease: [0.16, 1, 0.3, 1]}}
                         viewport={{ once: true }}
                         className="bg-white/5 p-6 rounded-2xl border border-white/5 backdrop-blur-sm"
                     >
@@ -84,7 +94,7 @@ const GitHubStats = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
+                        transition={{ duration: 0.5, delay: 0.3 , ease: [0.16, 1, 0.3, 1]}}
                         viewport={{ once: true }}
                         className="bg-white/5 p-6 rounded-2xl border border-white/5 backdrop-blur-sm"
                     >
@@ -113,7 +123,7 @@ const GitHubStats = () => {
                             rel="noreferrer"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 , ease: [0.16, 1, 0.3, 1]}}
                             viewport={{ once: true }}
                             className="group bg-white/5 p-6 rounded-2xl border border-white/5 hover:border-cyan-500/50 transition-all hover:shadow-lg hover:shadow-cyan-500/10 backdrop-blur-sm"
                         >
@@ -161,7 +171,7 @@ const GitHubStats = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                     viewport={{ once: true }}
                     className="mt-12 bg-white/5 p-8 rounded-2xl border border-white/5 backdrop-blur-sm"
                 >

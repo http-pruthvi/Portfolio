@@ -106,6 +106,7 @@ export const PinPerspective = ({
                                 duration: 6,
                                 repeat: Infinity,
                                 delay: 0,
+                                ease: [0.16, 1, 0.3, 1]
                             }}
                             className="absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
                         ></motion.div>
@@ -126,6 +127,7 @@ export const PinPerspective = ({
                                 duration: 6,
                                 repeat: Infinity,
                                 delay: 2,
+                                ease: [0.16, 1, 0.3, 1]
                             }}
                             className="absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
                         ></motion.div>
@@ -146,6 +148,7 @@ export const PinPerspective = ({
                                 duration: 6,
                                 repeat: Infinity,
                                 delay: 4,
+                                ease: [0.16, 1, 0.3, 1]
                             }}
                             className="absolute left-1/2 top-1/2 h-[11.25rem] w-[11.25rem] rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)]"
                         ></motion.div>

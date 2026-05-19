@@ -80,7 +80,7 @@ const SkillRadar = () => {
                                 fill="#fff"
                                 initial={{ scale: 0 }}
                                 whileInView={{ scale: 1 }}
-                                transition={{ delay: i * 0.1 }}
+                                transition={{ delay: i * 0.1 , ease: [0.16, 1, 0.3, 1]}}
                                 className="group-hover:fill-cyan-400"
                             />
                         );
@@ -100,7 +100,7 @@ const SkillRadar = () => {
                             key={i}
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
-                            transition={{ delay: 0.5 + i * 0.1 }}
+                            transition={{ delay: 0.5 + i * 0.1 , ease: [0.16, 1, 0.3, 1]}}
                             style={{
                                 position: 'absolute',
                                 left: x,

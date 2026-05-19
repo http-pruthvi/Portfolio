@@ -35,7 +35,7 @@ const Hero = () => {
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                         className="text-center lg:text-right pointer-events-auto"
                     >
                         <h2 className="text-[42px] md:text-[52px] lg:text-[68px] font-bold text-white mb-[21px] font-mono leading-tight">
@@ -53,7 +53,7 @@ const Hero = () => {
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                         className="text-center lg:text-left pr-4 pointer-events-auto" // Added padding-right to fix clipping
                     >
                         <h2 className="text-[42px] md:text-[52px] lg:text-[68px] font-bold text-white mb-[21px] font-mono leading-tight">
@@ -69,7 +69,7 @@ const Hero = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
+                    transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
                     className="text-center mt-[89px] pointer-events-auto"
                 >
                     <div className="text-[20px] md:text-[26px] text-neutral-400 mb-[55px] h-[34px]">

@@ -62,7 +62,7 @@ const Certifications = () => {
                 key={`${cert.name}-${index}`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
+                transition={{ duration: 0.3, delay: index * 0.05 , ease: [0.16, 1, 0.3, 1]}}
                 viewport={{ once: true }}
             >
                 {cert.url ? (
@@ -93,7 +93,7 @@ const Certifications = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                     viewport={{ once: true }}
                     className="text-center mb-12"
                 >
@@ -109,7 +109,7 @@ const Certifications = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
+                    transition={{ duration: 0.5, delay: 0.1 , ease: [0.16, 1, 0.3, 1]}}
                     viewport={{ once: true }}
                     className="flex flex-wrap justify-center gap-3 mb-12"
                 >
@@ -139,7 +139,7 @@ const Certifications = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                     viewport={{ once: true }}
                     className="mt-12 text-center"
                 >

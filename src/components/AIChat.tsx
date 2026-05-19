@@ -140,7 +140,7 @@ const AIChat = () => {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.2 , ease: [0.16, 1, 0.3, 1]}}
                         className="fixed bottom-20 right-4 md:right-10 md:bottom-24 w-[90vw] md:w-[600px] h-[60vh] md:h-[500px] bg-black/85 backdrop-blur-xl border border-cyan-500/30 rounded-lg shadow-2xl overflow-hidden z-50 flex flex-col font-mono text-sm"
                         style={{ boxShadow: "0 0 40px rgba(6,182,212,0.15)" }}
                     >
@@ -206,7 +206,7 @@ const AIChat = () => {
                                 />
                                 <motion.span
                                     animate={{ opacity: [0, 1, 0] }}
-                                    transition={{ repeat: Infinity, duration: 0.8 }}
+                                    transition={{ repeat: Infinity, duration: 0.8 , ease: [0.16, 1, 0.3, 1]}}
                                     className="w-2 h-4 bg-cyan-400 ml-[-8px]"
                                 />
                             </form>

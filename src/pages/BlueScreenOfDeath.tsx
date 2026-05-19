@@ -139,7 +139,7 @@ const BlueScreenOfDeath = () => {
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
+                        transition={{ delay: 0.1 , ease: [0.16, 1, 0.3, 1]}}
                         className="text-xl md:text-2xl text-neutral-600 max-w-2xl leading-relaxed"
                     >
                         Full-stack developer & AI enthusiast crafting digital experiences that merge technical depth with visual excellence.
@@ -200,7 +200,7 @@ const BlueScreenOfDeath = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
+                                transition={{ delay: index * 0.1 , ease: [0.16, 1, 0.3, 1]}}
                                 className="group border-t border-neutral-200 pt-8"
                             >
                                 <div className="flex flex-col md:flex-row justify-between gap-8">
@@ -241,8 +241,8 @@ const BlueScreenOfDeath = () => {
                     <h2 className="text-4xl font-bold tracking-tight mb-12">Timeline</h2>
                     <div className="border-l-2 border-neutral-200 pl-8 ml-2 space-y-16">
                         {experience.map((item, index) => (
-                            <div key={index} className="relative">
-                                <div className="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-white border-4 border-neutral-900" />
+                            <a href={item.link || "#"} target="_blank" rel="noopener noreferrer" key={index} className="relative block hover:bg-neutral-100 hover:scale-105 transition-all p-4 -ml-4 rounded-lg cursor-pointer">
+                                <div className="absolute -left-[25px] top-5 w-5 h-5 rounded-full bg-white border-4 border-neutral-900" />
                                 <span className="text-sm font-bold text-neutral-400 mb-2 block">{item.period}</span>
                                 <h3 className="text-xl font-bold mb-1">{item.role}</h3>
                                 <div className="flex items-center gap-2 text-neutral-600 mb-3 font-medium">
@@ -250,7 +250,7 @@ const BlueScreenOfDeath = () => {
                                     {item.company}
                                 </div>
                                 <p className="text-neutral-600 max-w-xl">{item.description}</p>
-                            </div>
+                            </a>
                         ))}
                     </div>
                 </section>

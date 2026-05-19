@@ -54,6 +54,15 @@ export default {
             md: "calc(var(--radius) - 2px)",
             sm: "calc(var(--radius) - 4px)",
         },
+        transitionTimingFunction: {
+            DEFAULT: "cubic-bezier(0.16, 1, 0.3, 1)",
+            "in-out": "cubic-bezier(0.65, 0, 0.35, 1)",
+            out: "cubic-bezier(0.16, 1, 0.3, 1)",
+            in: "cubic-bezier(0.55, 0, 1, 0.45)",
+        },
+        transitionDuration: {
+            DEFAULT: "400ms",
+        },
         animation: {
             "accordion-down": "accordion-down 0.2s ease-out",
             "accordion-up": "accordion-up 0.2s ease-out",

@@ -21,7 +21,7 @@ const About = () => {
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                     viewport={{ once: true }}
                     className="text-[32px] md:text-[42px] lg:text-[52px] font-bold text-center mb-[55px] bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
                 >
@@ -32,7 +32,7 @@ const About = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
+                    transition={{ duration: 0.5, delay: 0.1 , ease: [0.16, 1, 0.3, 1]}}
                     viewport={{ once: true }}
                     className="max-w-5xl mx-auto mb-[89px]"
                 >

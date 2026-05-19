@@ -162,14 +162,16 @@ const Redacted = () => {
                     <h2 className="text-sm font-sans tracking-widest uppercase mb-16 border-b border-white/20 pb-4 text-neutral-400">Experience Log</h2>
                     <div className="space-y-12 max-w-4xl mx-auto">
                         {experience.map((exp, i) => (
-                            <div key={i} className="flex flex-col md:flex-row justify-between items-baseline gap-4 group hover:bg-white/5 p-8 rounded-lg transition-colors -mx-8">
-                                <span className="text-sm font-sans uppercase tracking-widest text-neutral-500 md:w-1/4 group-hover:text-white transition-colors">{exp.period}</span>
-                                <div className="md:w-3/4">
-                                    <h3 className="text-3xl font-light mb-2 text-white">{exp.role}</h3>
-                                    <div className="text-xl italic text-neutral-500 mb-4">@ {exp.company}</div>
-                                    <p className="font-sans text-neutral-400 leading-relaxed group-hover:text-neutral-300 transition-colors">{exp.description}</p>
+                            <a href={exp.link || "#"} target="_blank" rel="noopener noreferrer" key={i} className="block group">
+                                <div className="flex flex-col md:flex-row justify-between items-baseline gap-4 group-hover:bg-white/5 p-8 rounded-lg transition-colors -mx-8 cursor-pointer">
+                                    <span className="text-sm font-sans uppercase tracking-widest text-neutral-500 md:w-1/4 group-hover:text-white transition-colors">{exp.period}</span>
+                                    <div className="md:w-3/4">
+                                        <h3 className="text-3xl font-light mb-2 text-white">{exp.role}</h3>
+                                        <div className="text-xl italic text-neutral-500 mb-4">@ {exp.company}</div>
+                                        <p className="font-sans text-neutral-400 leading-relaxed group-hover:text-neutral-300 transition-colors">{exp.description}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         ))}
                     </div>
                 </section>

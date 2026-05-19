@@ -13,7 +13,7 @@ const ResumeSection = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
@@ -50,7 +50,7 @@ const ResumeSection = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
+                        transition={{ duration: 0.5, delay: 0.1 , ease: [0.16, 1, 0.3, 1]}}
                         viewport={{ once: true }}
                         className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-500/40 transition-all"
                     >
@@ -67,7 +67,7 @@ const ResumeSection = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        transition={{ duration: 0.5, delay: 0.2 , ease: [0.16, 1, 0.3, 1]}}
                         viewport={{ once: true }}
                         className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 p-6 rounded-2xl border border-purple-500/20 hover:border-purple-500/40 transition-all"
                     >
@@ -84,7 +84,7 @@ const ResumeSection = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
+                        transition={{ duration: 0.5, delay: 0.3 , ease: [0.16, 1, 0.3, 1]}}
                         viewport={{ once: true }}
                         className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 p-6 rounded-2xl border border-green-500/20 hover:border-green-500/40 transition-all"
                     >
@@ -101,7 +101,7 @@ const ResumeSection = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
+                        transition={{ duration: 0.5, delay: 0.4 , ease: [0.16, 1, 0.3, 1]}}
                         viewport={{ once: true }}
                         className="bg-gradient-to-br from-orange-500/10 to-yellow-500/10 p-6 rounded-2xl border border-orange-500/20 hover:border-orange-500/40 transition-all"
                     >
@@ -119,7 +119,7 @@ const ResumeSection = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
+                    transition={{ duration: 0.5, delay: 0.5 , ease: [0.16, 1, 0.3, 1]}}
                     viewport={{ once: true }}
                     className="bg-neutral-900/50 p-8 rounded-2xl border border-white/10"
                 >

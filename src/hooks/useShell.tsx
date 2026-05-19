@@ -176,13 +176,13 @@ export const useShell = () => {
                 addToHistory(cmd, [
                     <div key={Date.now()} className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
                         {projects.map((p, i) => (
-                            <div key={i} className="border border-[#4c566a] p-3 rounded hover:border-[#88c0d0] transition-colors group">
+                            <a href={p.demo !== "#" ? p.demo : p.github} target="_blank" rel="noopener noreferrer" key={i} className="block border border-[#4c566a] p-3 rounded hover:border-[#88c0d0] hover:bg-[#88c0d0]/10 transition-colors group cursor-pointer">
                                 <div className={`font-bold ${p.color} mb-1 group-hover:underline`}>{p.title}</div>
                                 <div className="text-xs text-[#d8dee9] mb-2">{p.description}</div>
-                                <div className="flex gap-2 text-[10px] uppercase tracking-wider">
+                                <div className="flex flex-wrap gap-2 text-[10px] uppercase tracking-wider">
                                     {p.tags.map(tag => <span key={tag} className="bg-[#2e3440] px-1 rounded text-[#8fbcbb]">{tag}</span>)}
                                 </div>
-                            </div>
+                            </a>
                         ))}
                     </div>
                 ]);
